@@ -3,208 +3,841 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>هم‌حساب — فریم‌های آمادهٔ Figma</title>
+  <title>هم‌حساب — فریم‌های Figma (۳۹۰×۸۴۴)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --brand: #0F6B5C; --brand-deep: #0A4A3F; --brand-soft: #D8EFE9;
-      --ink: #14201B; --muted: #5B6B64; --line: #D7E2DE; --paper: #F7F9F8;
-      --lend: #1F8A6E; --borrow: #C45C4A;
+      --brand: #0F6B5C;
+      --brand-deep: #0A4A3F;
+      --brand-soft: #D8EFE9;
+      --ink: #14201B;
+      --muted: #5B6B64;
+      --line: #D7E2DE;
+      --paper: #F7F9F8;
+      --lend: #1F8A6E;
+      --borrow: #C45C4A;
+      --warn: #C9892C;
+      --warn-bg: #FFF7E8;
+      --warn-line: #E8C98A;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body, button, input, textarea, select {
       font-family: "Vazirmatn", sans-serif !important;
     }
     body {
-      font-family: "Vazirmatn", sans-serif; background: #1a1f1d; color: #fff;
-      padding: 40px 24px 80px;
+      background: #121816;
+      color: #E7EEEA;
+      padding: 48px 32px 100px;
+      line-height: 1.6;
     }
-    h1 { font-size: 28px; margin-bottom: 8px; }
-    .note { color: #A7B5AE; margin-bottom: 28px; max-width: 70ch; line-height: 1.7; }
-    .row { display: flex; flex-wrap: wrap; gap: 28px; margin-bottom: 48px; }
-    .frame-wrap { width: 390px; }
-    .label { font-size: 13px; color: #A7B5AE; margin-bottom: 10px; font-weight: 600; }
+
+    .page-head { max-width: 980px; margin-bottom: 40px; }
+    .page-head h1 { font-size: 30px; font-weight: 800; margin-bottom: 8px; color: #fff; }
+    .page-head p { color: #A7B5AE; max-width: 70ch; }
+    .page-head code {
+      background: #24302B; color: #D8EFE9; padding: 2px 8px; border-radius: 8px; font-size: 13px;
+    }
+
+    .section-title {
+      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+      margin: 56px 0 20px; padding-top: 28px; border-top: 1px solid #2A3531;
+    }
+    .section-title h2 { font-size: 22px; font-weight: 800; color: #fff; }
+    .section-title span { color: #8FA097; font-size: 13px; font-weight: 600; }
+
+    .row {
+      display: flex; flex-wrap: wrap; gap: 36px 28px; align-items: flex-start;
+    }
+
+    .frame-wrap { width: 390px; flex: 0 0 390px; }
+    .frame-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px; gap: 8px;
+    }
+    .frame-meta .name {
+      font-size: 13px; font-weight: 700; color: #D8EFE9;
+      letter-spacing: 0.01em;
+    }
+    .frame-meta .size {
+      font-size: 11px; font-weight: 600; color: #7F9088;
+      background: #1C2421; border: 1px solid #2E3A35;
+      padding: 4px 8px; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* Exact Figma export size */
     .phone {
-      width: 390px; height: 844px; background: var(--paper); color: var(--ink);
-      border-radius: 0; overflow: hidden; position: relative;
+      width: 390px;
+      height: 844px;
+      background: var(--paper);
+      color: var(--ink);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
     }
-    .status { display:flex; justify-content:space-between; padding:14px 22px 0; font-size:12px; font-weight:700; }
-    .pad { padding: 8px 20px 24px; height: calc(100% - 34px); display:flex; flex-direction:column; }
+
+    .status {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 22px 0; font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    .pad {
+      padding: 8px 20px 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .greet { font-size: 12px; color: var(--muted); }
+    .title-lg { font-weight: 800; font-size: 18px; line-height: 1.35; }
+    .top {
+      display: flex; justify-content: space-between; align-items: center;
+      min-height: 44px; margin-bottom: 8px; gap: 10px;
+    }
+    .top .mid { font-weight: 800; font-size: 16px; }
+    .step { font-size: 12px; color: var(--muted); font-weight: 600; flex-shrink: 0; }
+    .back {
+      width: 36px; height: 36px; border-radius: 12px; background: #E7EEEC;
+      display: grid; place-items: center; font-weight: 700; color: var(--ink); flex-shrink: 0;
+    }
+
+    .av {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: grid; place-items: center; color: #fff; font-weight: 800; flex-shrink: 0;
+      font-size: 13px;
+    }
+    .av.sm { width: 36px; height: 36px; font-size: 12px; }
+
     .hero {
       background: linear-gradient(145deg, var(--brand), var(--brand-deep));
-      color:#fff; border-radius:22px; padding:18px; margin:10px 0 14px;
+      color: #fff; border-radius: 22px; padding: 18px; margin: 6px 0 12px;
     }
-    .hero .v { font-size:30px; font-weight:800; margin-top:4px; }
-    .seg { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
-    .seg span { text-align:center; padding:10px 6px; border-radius:12px; font-size:12px; font-weight:700; background:#E7EEEC; color:#456057; }
-    .seg .on { background:var(--brand-soft); color:var(--brand-deep); }
-    .item { display:flex; gap:10px; align-items:center; background:#fff; border:1px solid var(--line); border-radius:16px; padding:12px; margin-bottom:8px; }
-    .av { width:40px; height:40px; border-radius:50%; display:grid; place-items:center; color:#fff; font-weight:800; }
-    .amt { margin-right:auto; font-weight:800; font-size:13px; }
-    .plus { color:var(--lend); } .minus { color:var(--borrow); }
-    .cta { margin-top:auto; height:52px; border-radius:16px; background:var(--brand); color:#fff; display:grid; place-items:center; font-weight:700; }
-    .hint { text-align:center; font-size:12px; color:var(--muted); margin-top:10px; }
-    .top { display:flex; justify-content:space-between; align-items:center; font-weight:800; margin-bottom:12px; }
-    .type-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
-    .type { border:1.5px solid var(--line); background:#fff; border-radius:18px; padding:28px 12px; text-align:center; font-weight:700; }
-    .type.on { border-color:var(--brand); background:var(--brand-soft); color:var(--brand-deep); }
-    .amount-box { background:#fff; border:1px solid var(--line); border-radius:20px; padding:28px 12px; text-align:center; margin:10px 0 14px; }
-    .amount-box .num { font-size:36px; font-weight:800; }
-    .field { background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px; color:var(--muted); margin-bottom:10px; font-size:14px; }
-    .summary { background:#fff; border:1px solid var(--line); border-radius:20px; padding:8px 16px; }
-    .summary .r { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px dashed var(--line); font-size:14px; }
-    .summary .r:last-child { border:0; }
-    .k { color:var(--muted); } .v { font-weight:700; }
-    .success { flex:1; display:grid; place-items:center; text-align:center; }
-    .badge { width:84px; height:84px; border-radius:50%; background:var(--brand-soft); color:var(--brand); display:grid; place-items:center; font-size:36px; margin:0 auto 16px; }
-    .wf .box { background:#E5ECE9; border-radius:14px; margin-bottom:10px; }
-    .wf .bar { height:12px; width:40%; background:#D0DBD6; border-radius:8px; margin-bottom:16px; }
-    .pending { background:#FFF7E8; border:1px solid #E8C98A; border-radius:14px; padding:10px 12px; font-size:12px; color:#8A5A12; margin-bottom:12px; }
+    .hero .k { font-size: 12px; opacity: .85; }
+    .hero .v { font-size: 30px; font-weight: 800; margin-top: 4px; letter-spacing: -0.02em; }
+    .hero .s { font-size: 12px; opacity: .85; margin-top: 8px; line-height: 1.6; }
+
+    .pending {
+      background: var(--warn-bg); border: 1px solid var(--warn-line);
+      border-radius: 14px; padding: 10px 12px; font-size: 12px; color: #8A5A12;
+      margin-bottom: 12px; font-weight: 600; line-height: 1.6;
+    }
+
+    .seg {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px;
+    }
+    .seg span {
+      text-align: center; padding: 10px 6px; border-radius: 12px;
+      font-size: 12px; font-weight: 700; background: #E7EEEC; color: #456057;
+    }
+    .seg .on { background: var(--brand-soft); color: var(--brand-deep); }
+
+    .list { display: flex; flex-direction: column; gap: 8px; }
+    .item {
+      display: flex; align-items: center; gap: 10px;
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 16px; padding: 12px;
+    }
+    .item.selected { border-color: var(--brand); background: #F2FAF7; }
+    .item .t { font-size: 14px; font-weight: 700; }
+    .item .s { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .amt { margin-right: auto; font-size: 13px; font-weight: 800; white-space: nowrap; }
+    .amt.plus { color: var(--lend); }
+    .amt.minus { color: var(--borrow); }
+
+    .cta {
+      margin-top: auto; height: 52px; border-radius: 16px;
+      background: var(--brand); color: #fff;
+      display: grid; place-items: center; font-weight: 700; font-size: 15px;
+      flex-shrink: 0;
+    }
+    .cta.ghost {
+      margin-top: 8px; background: transparent; color: var(--brand);
+      border: 1.5px solid var(--brand);
+    }
+    .hint {
+      text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; line-height: 1.6;
+    }
+    .hint.right { text-align: right; margin-bottom: auto; margin-top: 8px; }
+
+    .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0 16px; }
+    .type {
+      border: 1.5px solid var(--line); background: #fff; border-radius: 18px;
+      padding: 28px 12px; text-align: center; font-weight: 700; font-size: 15px; line-height: 1.6;
+    }
+    .type.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-deep); }
+
+    .search {
+      width: 100%; border: 1px solid var(--line); background: #fff;
+      border-radius: 14px; padding: 12px 14px; font-size: 14px; color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .amount-box {
+      background: #fff; border: 1px solid var(--line); border-radius: 20px;
+      padding: 22px 12px; text-align: center; margin: 4px 0 14px;
+    }
+    .amount-box .num { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; }
+    .unit { color: var(--muted); font-size: 13px; font-weight: 600; margin-top: 2px; }
+    .quick { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
+    .chip {
+      border: 1px solid var(--line); background: #fff; border-radius: 999px;
+      padding: 8px 12px; font-size: 12px; font-weight: 700; color: var(--ink);
+    }
+    .chip.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-deep); }
+
+    .field {
+      width: 100%; border: 1px solid var(--line); background: #fff;
+      border-radius: 14px; padding: 13px 14px; font-size: 14px; color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .field.muted { color: var(--muted); }
+
+    .summary {
+      background: #fff; border: 1px solid var(--line); border-radius: 20px;
+      padding: 8px 16px; margin: 8px 0 12px;
+    }
+    .summary .r {
+      display: flex; justify-content: space-between; gap: 12px;
+      padding: 12px 0; border-bottom: 1px dashed var(--line); font-size: 14px;
+    }
+    .summary .r:last-child { border-bottom: 0; }
+    .summary .k { color: var(--muted); }
+    .summary .v { font-weight: 700; text-align: left; }
+
+    .success {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center; padding: 12px;
+    }
+    .badge {
+      width: 84px; height: 84px; border-radius: 50%;
+      background: var(--brand-soft); color: var(--brand);
+      display: grid; place-items: center; font-size: 36px; font-weight: 700; margin-bottom: 16px;
+    }
+
+    /* Wireframe */
+    .wf { background: #F3F5F4; }
+    .wf .bar { height: 12px; width: 42%; background: #D0DBD6; border-radius: 8px; margin-bottom: 16px; }
+    .wf .box { background: #E5ECE9; border-radius: 14px; margin-bottom: 10px; }
+    .wf .box.lg { height: 110px; }
+    .wf .box.md { height: 70px; }
+    .wf .box.sm { height: 48px; }
+    .wf .cta { background: #8BB5AA; color: #0A3D34; }
+    .wf .avatar { width: 36px; height: 36px; border-radius: 50%; background: #CDD8D3; flex-shrink: 0; }
+    .wf .line { height: 10px; background: #D0DBD6; border-radius: 6px; margin-bottom: 6px; }
+    .wf .line.w60 { width: 60%; } .wf .line.w40 { width: 40%; } .wf .line.w50 { width: 50%; }
+    .wf-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+    .wf-label {
+      font-size: 13px; font-weight: 700; color: #60756D; margin-bottom: 12px;
+    }
+
+    /* Cover & tokens */
+    .board {
+      background: #1C2421; border: 1px solid #2E3A35; border-radius: 20px;
+      padding: 20px; overflow: auto;
+    }
     .cover {
-      width: 1200px; height: 700px; background: linear-gradient(160deg, #F7FAF8, #E7EEEA);
-      color: var(--ink); padding: 64px; display:flex; flex-direction:column; justify-content:center;
+      width: 1200px; height: 700px;
+      background:
+        radial-gradient(700px 400px at 85% 10%, rgba(15,107,92,.18), transparent 60%),
+        linear-gradient(160deg, #F7FAF8 0%, #E7EEEA 100%);
+      color: var(--ink); padding: 64px;
+      display: flex; flex-direction: column; justify-content: center;
     }
-    .mark { width:72px; height:72px; border-radius:20px; background:linear-gradient(145deg,var(--brand),var(--brand-deep)); color:#fff; display:grid; place-items:center; font-weight:800; font-size:24px; margin-bottom:24px; }
+    .mark {
+      width: 72px; height: 72px; border-radius: 20px;
+      background: linear-gradient(145deg, var(--brand), var(--brand-deep));
+      color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 24px;
+      margin-bottom: 24px;
+    }
+    .pill {
+      background: #fff; border: 1px solid var(--line);
+      padding: 10px 14px; border-radius: 12px; font-size: 14px; font-weight: 600;
+    }
+
+    .tokens {
+      width: 1200px; min-height: 520px; background: #F7FAF8; color: var(--ink);
+      padding: 48px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px;
+    }
+    .swatch-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+    .swatch {
+      width: 110px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #fff;
+    }
+    .swatch .c { height: 64px; }
+    .swatch .n { padding: 8px; font-size: 11px; font-weight: 700; }
+    .swatch .h { padding: 0 8px 8px; font-size: 11px; color: var(--muted); }
+    .type-sample { margin-top: 10px; }
+    .type-sample .display { font-size: 36px; font-weight: 800; }
+    .type-sample .body { font-size: 15px; color: var(--muted); margin-top: 6px; }
+
+    .flow-board {
+      width: 1200px; min-height: 420px; background: #F7FAF8; color: var(--ink);
+      padding: 36px; position: relative;
+    }
+    .flow-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-top: 20px;
+    }
+    .flow-node {
+      background: #fff; border: 1.5px solid var(--line); border-radius: 14px;
+      padding: 14px 10px; text-align: center; font-size: 13px; font-weight: 700;
+      min-height: 72px; display: grid; place-items: center;
+    }
+    .flow-node.main { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .flow-node.warn { background: var(--warn-bg); border-color: var(--warn-line); color: #8A5A12; }
+    .flow-arrow {
+      text-align: center; color: var(--muted); font-size: 18px; font-weight: 700;
+      grid-column: 1 / -1; letter-spacing: 8px;
+    }
+    .spacer { flex: 1; }
+
+    @media (max-width: 860px) {
+      body { padding: 24px 14px 60px; }
+      .cover, .tokens, .flow-board { width: 100%; height: auto; min-height: 0; }
+      .tokens { grid-template-columns: 1fr; padding: 28px; }
+      .flow-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; padding: 12px; }
+      .page-head, .section-title span { color: #333; }
+      .phone { box-shadow: none; break-inside: avoid; page-break-inside: avoid; }
+    }
   </style>
 </head>
 <body>
-  <h1>فریم‌های آماده برای Paste در Figma</h1>
-  <p class="note">
-    از هر فریم اسکرین‌شات بگیرید (یا با ابزار Capture) و داخل Figma در Frameهای ۳۹۰×۸۴۴ بچسبانید.
-    کاور را هم در صفحهٔ اول فایل بگذارید. سپس Share → View برای hana.pkhki.qanbari@gmail.com
-  </p>
+  <header class="page-head">
+    <h1>فریم‌های آمادهٔ Figma — هم‌حساب</h1>
+    <p>
+      هر بلوک <code>.phone</code> دقیقاً <strong>۳۹۰ × ۸۴۴</strong> است.
+      از هر فریم اسکرین‌شات جدا بگیرید (یا با افزونهٔ Full Page / snipping) و در Figma داخل Frame هم‌اندازه Paste کنید.
+      فونت: <strong>Vazirmatn</strong> · ارقام فارسی.
+    </p>
+  </header>
 
-  <div class="label">Cover</div>
-  <div class="cover" style="margin-bottom:48px">
-    <div class="mark">هم</div>
-    <div style="color:var(--brand);font-weight:700;margin-bottom:10px">تسک طراحی تجربه و رابط کاربری — مهیمن</div>
-    <div style="font-size:56px;font-weight:800;line-height:1.2">هم‌حساب</div>
-    <div style="font-size:20px;color:var(--muted);margin-top:14px;max-width:28ch;line-height:1.7">
-      دفترچه دیجیتال قرض بین هم‌کلاسی‌ها — بدون انتقال وجه
-    </div>
-    <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap">
-      <span style="background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:12px">علی فتی</span>
-      <span style="background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:12px">User Flow · Use Case · Wireframe · UI</span>
-      <span style="background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:12px">دبیرستان شهید عباسی</span>
+  <!-- ========== COVER ========== -->
+  <div class="section-title">
+    <h2>۰. کاور</h2>
+    <span>۱۲۰۰ × ۷۰۰ · صفحه اول فایل Figma</span>
+  </div>
+  <div class="board">
+    <div class="frame-meta"><span class="name">Cover / هم‌حساب</span><span class="size">1200 × 700</span></div>
+    <div class="cover">
+      <div class="mark">هم</div>
+      <div style="color:var(--brand);font-weight:700;margin-bottom:10px">تسک طراحی تجربه و رابط کاربری — مهیمن</div>
+      <div style="font-size:56px;font-weight:800;line-height:1.2">هم‌حساب</div>
+      <div style="font-size:20px;color:var(--muted);margin-top:14px;max-width:28ch;line-height:1.7">
+        دفترچه دیجیتال قرض بین هم‌کلاسی‌ها — بدون انتقال وجه
+      </div>
+      <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap">
+        <span class="pill">علی فتی</span>
+        <span class="pill">User Flow · Use Case · Wireframe · UI</span>
+        <span class="pill">دبیرستان پسرانه شهید عباسی</span>
+      </div>
     </div>
   </div>
 
+  <!-- ========== TOKENS ========== -->
+  <div class="section-title">
+    <h2>۱. Design Tokens</h2>
+    <span>رنگ · تایپ · برای ساخت Style در Figma</span>
+  </div>
+  <div class="board">
+    <div class="frame-meta"><span class="name">Tokens</span><span class="size">1200 × auto</span></div>
+    <div class="tokens">
+      <div>
+        <div style="font-weight:800;font-size:20px">رنگ‌ها</div>
+        <div class="swatch-row">
+          <div class="swatch"><div class="c" style="background:#0F6B5C"></div><div class="n">Brand</div><div class="h">#0F6B5C</div></div>
+          <div class="swatch"><div class="c" style="background:#0A4A3F"></div><div class="n">Brand Deep</div><div class="h">#0A4A3F</div></div>
+          <div class="swatch"><div class="c" style="background:#D8EFE9"></div><div class="n">Brand Soft</div><div class="h">#D8EFE9</div></div>
+          <div class="swatch"><div class="c" style="background:#14201B"></div><div class="n">Ink</div><div class="h">#14201B</div></div>
+          <div class="swatch"><div class="c" style="background:#F7F9F8"></div><div class="n">Paper</div><div class="h">#F7F9F8</div></div>
+          <div class="swatch"><div class="c" style="background:#1F8A6E"></div><div class="n">Lend</div><div class="h">#1F8A6E</div></div>
+          <div class="swatch"><div class="c" style="background:#C45C4A"></div><div class="n">Borrow</div><div class="h">#C45C4A</div></div>
+          <div class="swatch"><div class="c" style="background:#C9892C"></div><div class="n">Warn</div><div class="h">#C9892C</div></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:800;font-size:20px">تایپوگرافی</div>
+        <div class="type-sample">
+          <div class="display">هم‌حساب</div>
+          <div class="body">Vazirmatn · Regular / Medium / Bold / ExtraBold</div>
+          <div style="margin-top:18px;font-size:30px;font-weight:800">۲۴۰٬۰۰۰ تومان</div>
+          <div style="margin-top:6px;font-size:14px;color:var(--muted)">ارقام حتماً فارسی · جداکننده هزارگان: ٬</div>
+          <div style="margin-top:18px;font-size:14px;line-height:1.8;color:var(--muted)">
+            Radius: ۱۴ / ۱۶ / ۱۸ / ۲۲<br>
+            Frame موبایل: ۳۹۰ × ۸۴۴<br>
+            اصل تجربه: ثبت سریع · تأیید دوطرفه · بدهی خالص
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FLOW ========== -->
+  <div class="section-title">
+    <h2>۲. مسیر کاربر (خلاصه برای Figma)</h2>
+    <span>Home → Type → Classmate → Amount → Review → Success</span>
+  </div>
+  <div class="board">
+    <div class="frame-meta"><span class="name">User Path Strip</span><span class="size">1200 × auto</span></div>
+    <div class="flow-board">
+      <div style="font-weight:800;font-size:18px">مسیر اصلی ثبت یک قرض</div>
+      <div class="flow-grid">
+        <div class="flow-node">داشبورد</div>
+        <div class="flow-node main">نوع قرض</div>
+        <div class="flow-node">انتخاب نفر</div>
+        <div class="flow-node">مبلغ و جزئیات</div>
+        <div class="flow-node">بازبینی</div>
+        <div class="flow-node main">موفقیت / معلق</div>
+      </div>
+      <div class="flow-arrow">← ← ← ← ←</div>
+      <div class="flow-grid" style="grid-template-columns:repeat(3,1fr);margin-top:8px">
+        <div class="flow-node warn">اعلان به طرف مقابل</div>
+        <div class="flow-node">تأیید یا رد</div>
+        <div class="flow-node">به‌روز شدن مانده خالص</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HI-FI UI ========== -->
+  <div class="section-title">
+    <h2>۳. UI Hi-Fi — مسیر ثبت قرض</h2>
+    <span>۶ صفحه · ۳۹۰ × ۸۴۴ · منطبق با پروتوتایپ</span>
+  </div>
   <div class="row">
+
+    <!-- UI-01 Home -->
     <div class="frame-wrap">
-      <div class="label">UI-01 Home</div>
-      <div class="phone">
-        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
+      <div class="frame-meta"><span class="name">UI-01 · داشبورد</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-01">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
         <div class="pad">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div><div style="font-size:12px;color:var(--muted)">سلام علی 👋</div><div style="font-weight:800;font-size:18px">کلاس یازدهم ریاضی</div></div>
+          <div class="top">
+            <div>
+              <div class="greet">سلام علی 👋</div>
+              <div class="title-lg">کلاس یازدهم ریاضی</div>
+            </div>
             <div class="av" style="background:var(--brand)">ع.ف</div>
           </div>
           <div class="hero">
-            <div style="font-size:12px;opacity:.85">مانده خالص شما</div>
+            <div class="k">مانده خالص شما</div>
             <div class="v">۲۴۰٬۰۰۰ تومان</div>
-            <div style="font-size:12px;opacity:.85;margin-top:8px">۳ نفر به شما بدهکارند · شما به ۱ نفر بدهکارید</div>
+            <div class="s">۳ نفر به شما بدهکارند · شما به ۱ نفر بدهکارید</div>
           </div>
           <div class="pending">۱ درخواست معلق از رضا کریمی — ۶۰٬۰۰۰ تومان</div>
-          <div class="seg"><span class="on">بستانکاری</span><span>بدهکاری</span><span>معلق</span></div>
-          <div class="item"><div class="av" style="background:#3E8F7C">س</div><div><div style="font-weight:700">سارا محمدی</div><div style="font-size:12px;color:var(--muted)">ناهار · تا ۵ روز</div></div><div class="amt plus">+۱۵۰٬۰۰۰</div></div>
-          <div class="item"><div class="av" style="background:#C9892C">م</div><div><div style="font-weight:700">مهدی رضایی</div><div style="font-size:12px;color:var(--muted)">جزوه فیزیک</div></div><div class="amt plus">+۹۰٬۰۰۰</div></div>
-          <div class="item"><div class="av" style="background:#5B6B64">ک</div><div><div style="font-weight:700">کیان احمدی</div><div style="font-size:12px;color:var(--muted)">شما بدهکارید</div></div><div class="amt minus">−۴۰٬۰۰۰</div></div>
+          <div class="seg">
+            <span class="on">بستانکاری</span>
+            <span>بدهکاری</span>
+            <span>معلق</span>
+          </div>
+          <div class="list">
+            <div class="item">
+              <div class="av" style="background:#3E8F7C">س</div>
+              <div><div class="t">سارا محمدی</div><div class="s">ناهار · تا ۵ روز</div></div>
+              <div class="amt plus">+۱۵۰٬۰۰۰</div>
+            </div>
+            <div class="item">
+              <div class="av" style="background:#C9892C">م</div>
+              <div><div class="t">مهدی رضایی</div><div class="s">جزوه فیزیک</div></div>
+              <div class="amt plus">+۹۰٬۰۰۰</div>
+            </div>
+            <div class="item">
+              <div class="av" style="background:#5B6B64">ک</div>
+              <div><div class="t">کیان احمدی</div><div class="s">شما بدهکارید</div></div>
+              <div class="amt minus">−۴۰٬۰۰۰</div>
+            </div>
+          </div>
           <div class="cta">＋ ثبت قرض جدید</div>
           <div class="hint">وجه در اپ جابه‌جا نمی‌شود — فقط ثبت می‌شود</div>
         </div>
       </div>
     </div>
 
+    <!-- UI-02 Type -->
     <div class="frame-wrap">
-      <div class="label">UI-02 Amount</div>
-      <div class="phone">
-        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
+      <div class="frame-meta"><span class="name">UI-02 · نوع قرض</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-02">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
         <div class="pad">
-          <div class="top"><span>→</span><span>مبلغ و جزئیات</span><span style="color:var(--muted);font-size:12px">۳/۴</span></div>
+          <div class="top">
+            <div class="back">→</div>
+            <div class="mid">ثبت قرض</div>
+            <div class="step">۱/۴</div>
+          </div>
+          <div style="color:var(--muted);font-size:14px;margin:8px 0 4px">چه نوع ثبتی می‌خواهید؟</div>
           <div class="type-grid">
             <div class="type on">قرض دادم</div>
             <div class="type">قرض گرفتم</div>
           </div>
-          <div class="field">به: مهدی رضایی · یازدهم ریاضی</div>
+          <div class="hint right">بعد از ثبت، طرف مقابل باید تأیید کند تا مانده به‌روز شود.</div>
+          <div class="cta">ادامه</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI-03 Classmate -->
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">UI-03 · انتخاب هم‌کلاسی</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-03">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
+        <div class="pad">
+          <div class="top">
+            <div class="back">→</div>
+            <div class="mid">انتخاب هم‌کلاسی</div>
+            <div class="step">۲/۴</div>
+          </div>
+          <div class="search">جستجوی نام…</div>
+          <div class="list">
+            <div class="item selected">
+              <div class="av" style="background:#C9892C">م</div>
+              <div><div class="t">مهدی رضایی</div><div class="s">میز ۳ · یازدهم ریاضی</div></div>
+            </div>
+            <div class="item">
+              <div class="av" style="background:#3E8F7C">س</div>
+              <div><div class="t">سارا محمدی</div><div class="s">میز ۱ · یازدهم ریاضی</div></div>
+            </div>
+            <div class="item">
+              <div class="av" style="background:#5B6B64">ک</div>
+              <div><div class="t">کیان احمدی</div><div class="s">میز ۵ · یازدهم ریاضی</div></div>
+            </div>
+            <div class="item">
+              <div class="av" style="background:#8A5A12">ر</div>
+              <div><div class="t">رضا کریمی</div><div class="s">میز ۲ · یازدهم ریاضی</div></div>
+            </div>
+            <div class="item">
+              <div class="av" style="background:#2F6F8F">ا</div>
+              <div><div class="t">امیر حسینی</div><div class="s">میز ۴ · یازدهم ریاضی</div></div>
+            </div>
+          </div>
+          <div class="cta">انتخاب و ادامه</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI-04 Amount -->
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">UI-04 · مبلغ و جزئیات</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-04">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
+        <div class="pad">
+          <div class="top">
+            <div class="back">→</div>
+            <div class="mid">مبلغ و جزئیات</div>
+            <div class="step">۳/۴</div>
+          </div>
+          <div class="pending">به: مهدی رضایی · یازدهم ریاضی</div>
           <div class="amount-box">
             <div class="num">۱۵۰٬۰۰۰</div>
-            <div style="color:var(--muted);font-size:13px;font-weight:600">تومان</div>
+            <div class="unit">تومان</div>
+            <div class="quick">
+              <span class="chip">۵۰٬۰۰۰</span>
+              <span class="chip">۱۰۰٬۰۰۰</span>
+              <span class="chip on">۱۵۰٬۰۰۰</span>
+              <span class="chip">۲۰۰٬۰۰۰</span>
+            </div>
           </div>
-          <div class="field">یادداشت: ناهار سلف</div>
-          <div class="field">سررسید: ۵ روز دیگر</div>
+          <div class="field">ناهار سلف</div>
+          <div class="field">۵ روز دیگر</div>
+          <div class="spacer"></div>
           <div class="cta">ادامه به بازبینی</div>
         </div>
       </div>
     </div>
 
+    <!-- UI-05 Review -->
     <div class="frame-wrap">
-      <div class="label">WF-02 Type</div>
-      <div class="phone wf">
-        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
+      <div class="frame-meta"><span class="name">UI-05 · بازبینی</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-05">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
         <div class="pad">
-          <div class="bar"></div>
-          <div style="font-weight:800;margin-bottom:16px">نوع ثبت را انتخاب کن</div>
-          <div class="box" style="height:120px;display:grid;place-items:center;font-weight:700;color:#60756D">قرض دادم</div>
-          <div class="box" style="height:120px;display:grid;place-items:center;font-weight:700;color:#60756D">قرض گرفتم</div>
-          <div class="cta" style="background:#8BB5AA;color:#0A3D34">ادامه</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="frame-wrap">
-      <div class="label">WF-03 Classmate</div>
-      <div class="phone wf">
-        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
-        <div class="pad">
-          <div class="bar" style="width:70%"></div>
-          <div class="box" style="height:44px"></div>
-          <div class="item"><div class="av" style="background:#CDD8D3;color:#60756D">م</div><div style="flex:1"><div class="box" style="height:10px;width:50%;margin:0 0 8px"></div><div class="box" style="height:8px;width:35%;margin:0"></div></div></div>
-          <div class="item"><div class="av" style="background:#CDD8D3;color:#60756D">س</div><div style="flex:1"><div class="box" style="height:10px;width:45%;margin:0 0 8px"></div><div class="box" style="height:8px;width:40%;margin:0"></div></div></div>
-          <div class="item"><div class="av" style="background:#CDD8D3;color:#60756D">ک</div><div style="flex:1"><div class="box" style="height:10px;width:55%;margin:0 0 8px"></div><div class="box" style="height:8px;width:30%;margin:0"></div></div></div>
-          <div class="item"><div class="av" style="background:#CDD8D3;color:#60756D">ر</div><div style="flex:1"><div class="box" style="height:10px;width:40%;margin:0 0 8px"></div><div class="box" style="height:8px;width:38%;margin:0"></div></div></div>
-          <div class="cta" style="background:#8BB5AA;color:#0A3D34">انتخاب</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="frame-wrap">
-      <div class="label">WF-05 Review</div>
-      <div class="phone">
-        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
-        <div class="pad">
-          <div class="top"><span>→</span><span>بازبینی</span><span style="color:var(--muted);font-size:12px">۴/۴</span></div>
+          <div class="top">
+            <div class="back">→</div>
+            <div class="mid">بازبینی</div>
+            <div class="step">۴/۴</div>
+          </div>
           <div class="summary">
             <div class="r"><span class="k">نوع</span><span class="v">قرض دادم</span></div>
             <div class="r"><span class="k">طرف مقابل</span><span class="v">مهدی رضایی</span></div>
             <div class="r"><span class="k">مبلغ</span><span class="v">۱۵۰٬۰۰۰ تومان</span></div>
             <div class="r"><span class="k">یادداشت</span><span class="v">ناهار سلف</span></div>
             <div class="r"><span class="k">سررسید</span><span class="v">۵ روز دیگر</span></div>
-            <div class="r"><span class="k">وضعیت</span><span class="v">در انتظار تأیید</span></div>
+            <div class="r"><span class="k">وضعیت پس از ثبت</span><span class="v">در انتظار تأیید</span></div>
           </div>
-          <div class="hint" style="text-align:right;margin:16px 0 auto">با ثبت، درخواست تأیید ارسال می‌شود. انتقال وجه بیرون از اپ است.</div>
+          <div class="hint right">با ثبت، یک درخواست تأیید برای طرف مقابل ارسال می‌شود. انتقال وجه بیرون از اپ انجام می‌شود.</div>
           <div class="cta">ثبت و ارسال برای تأیید</div>
         </div>
       </div>
     </div>
 
+    <!-- UI-06 Success -->
     <div class="frame-wrap">
-      <div class="label">WF-06 Success</div>
-      <div class="phone">
-        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
+      <div class="frame-meta"><span class="name">UI-06 · موفقیت</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-06">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
         <div class="pad">
           <div class="success">
-            <div>
-              <div class="badge">✓</div>
-              <div style="font-size:22px;font-weight:800;margin-bottom:8px">قرض ثبت شد</div>
-              <div style="color:var(--muted);font-size:14px;line-height:1.8;max-width:26ch;margin:0 auto">
-                درخواست برای مهدی رضایی ارسال شد. تا تأیید او مانده تغییر نمی‌کند.
-              </div>
+            <div class="badge">✓</div>
+            <div style="font-size:22px;font-weight:800;margin-bottom:8px">قرض ثبت شد</div>
+            <div style="color:var(--muted);font-size:14px;line-height:1.8;max-width:28ch">
+              درخواست ۱۵۰٬۰۰۰ تومان برای مهدی رضایی ارسال شد. تا تأیید او، مانده خالص تغییر نمی‌کند.
             </div>
           </div>
+          <div class="cta">بازگشت به داشبورد</div>
+          <div class="cta ghost">ثبت قرض دیگر</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== EXTRA UI STATES ========== -->
+  <div class="section-title">
+    <h2>۴. UI — حالت‌های مکمل</h2>
+    <span>برای غنای فایل Figma · اختیاری ولی توصیه‌شده</span>
+  </div>
+  <div class="row">
+
+    <!-- UI-07 Debt tab -->
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">UI-07 · تب بدهکاری</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-07">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
+        <div class="pad">
+          <div class="top">
+            <div>
+              <div class="greet">سلام علی 👋</div>
+              <div class="title-lg">کلاس یازدهم ریاضی</div>
+            </div>
+            <div class="av" style="background:var(--brand)">ع.ف</div>
+          </div>
+          <div class="hero">
+            <div class="k">مانده خالص شما</div>
+            <div class="v">۲۴۰٬۰۰۰ تومان</div>
+            <div class="s">نمای بدهکاری‌های باز</div>
+          </div>
+          <div class="seg">
+            <span>بستانکاری</span>
+            <span class="on">بدهکاری</span>
+            <span>معلق</span>
+          </div>
+          <div class="list">
+            <div class="item">
+              <div class="av" style="background:#5B6B64">ک</div>
+              <div><div class="t">کیان احمدی</div><div class="s">کرایه تاکسی · سررسید فردا</div></div>
+              <div class="amt minus">−۴۰٬۰۰۰</div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div class="cta">ثبت بازپرداخت</div>
+          <div class="hint">پس از پرداخت نقدی بیرون از اپ، اینجا ثبت کنید</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI-08 Pending confirm -->
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">UI-08 · تأیید درخواست</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-08">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
+        <div class="pad">
+          <div class="top">
+            <div class="back">→</div>
+            <div class="mid">درخواست معلق</div>
+            <div class="step">تأیید</div>
+          </div>
+          <div class="pending">رضا کریمی این قرض را ثبت کرده و منتظر تأیید شماست</div>
+          <div class="summary">
+            <div class="r"><span class="k">نوع از دید شما</span><span class="v">قرض گرفتم</span></div>
+            <div class="r"><span class="k">طرف مقابل</span><span class="v">رضا کریمی</span></div>
+            <div class="r"><span class="k">مبلغ</span><span class="v">۶۰٬۰۰۰ تومان</span></div>
+            <div class="r"><span class="k">یادداشت</span><span class="v">خودکار جزوه</span></div>
+            <div class="r"><span class="k">سررسید</span><span class="v">۳ روز دیگر</span></div>
+          </div>
+          <div class="spacer"></div>
+          <div class="cta">تأیید می‌کنم</div>
+          <div class="cta ghost">رد کردن</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI-09 Type borrow selected -->
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">UI-09 · نوع: قرض گرفتم</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-09">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
+        <div class="pad">
+          <div class="top">
+            <div class="back">→</div>
+            <div class="mid">ثبت قرض</div>
+            <div class="step">۱/۴</div>
+          </div>
+          <div style="color:var(--muted);font-size:14px;margin:8px 0 4px">چه نوع ثبتی می‌خواهید؟</div>
+          <div class="type-grid">
+            <div class="type">قرض دادم</div>
+            <div class="type on">قرض گرفتم</div>
+          </div>
+          <div class="hint right">بعد از ثبت، طرف مقابل باید تأیید کند تا مانده به‌روز شود.</div>
+          <div class="cta">ادامه</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI-10 Empty search / netting hint -->
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">UI-10 · بدهی خالص دو نفر</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-10">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
+        <div class="pad">
+          <div class="top">
+            <div class="back">→</div>
+            <div class="mid">بدهی خالص</div>
+            <div class="step">Net</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin:8px 0 16px">
+            <div class="av" style="background:var(--brand)">ع.ف</div>
+            <div style="flex:1;text-align:center;color:var(--muted);font-size:13px;font-weight:700">⟷</div>
+            <div class="av" style="background:#3E8F7C">س</div>
+          </div>
+          <div class="hero">
+            <div class="k">سارا محمدی به شما بدهکار است</div>
+            <div class="v">۱۵۰٬۰۰۰ تومان</div>
+            <div class="s">پس از خالص‌سازی ۲ قرض باز بین شما</div>
+          </div>
+          <div class="list">
+            <div class="item">
+              <div><div class="t">ناهار سلف</div><div class="s">قرض دادید · باز</div></div>
+              <div class="amt plus">+۱۵۰٬۰۰۰</div>
+            </div>
+            <div class="item">
+              <div><div class="t">خودکار</div><div class="s">قرض گرفتید · تسویه شده</div></div>
+              <div class="amt" style="color:var(--muted)">۰</div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div class="cta">پیشنهاد تسویه یک‌جا</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== WIREFRAMES ========== -->
+  <div class="section-title">
+    <h2>۵. Wireframes — همان مسیر</h2>
+    <span>نسخه خاکستری برای نشان‌دادن ساختار قبل از UI</span>
+  </div>
+  <div class="row">
+
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">WF-01 · داشبورد</span><span class="size">390 × 844</span></div>
+      <div class="phone wf" data-frame="WF-01">
+        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
+        <div class="pad">
+          <div class="bar"></div>
+          <div class="box lg"></div>
+          <div class="box sm" style="background:#F3E8C8"></div>
+          <div class="wf-row"><div class="avatar"></div><div style="flex:1"><div class="line w60"></div><div class="line w40"></div></div></div>
+          <div class="wf-row"><div class="avatar"></div><div style="flex:1"><div class="line w50"></div><div class="line w40"></div></div></div>
+          <div class="wf-row"><div class="avatar"></div><div style="flex:1"><div class="line w60"></div><div class="line w40"></div></div></div>
+          <div class="spacer"></div>
+          <div class="cta">ثبت قرض جدید</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">WF-02 · نوع قرض</span><span class="size">390 × 844</span></div>
+      <div class="phone wf" data-frame="WF-02">
+        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
+        <div class="pad">
+          <div class="bar"></div>
+          <div class="wf-label">نوع ثبت را انتخاب کن</div>
+          <div class="box md" style="display:grid;place-items:center;font-weight:700;color:#60756D">قرض دادم</div>
+          <div class="box md" style="display:grid;place-items:center;font-weight:700;color:#60756D">قرض گرفتم</div>
+          <div class="spacer"></div>
+          <div class="cta">ادامه</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">WF-03 · هم‌کلاسی</span><span class="size">390 × 844</span></div>
+      <div class="phone wf" data-frame="WF-03">
+        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
+        <div class="pad">
+          <div class="bar" style="width:55%"></div>
+          <div class="box sm"></div>
+          <div class="wf-row"><div class="avatar"></div><div style="flex:1"><div class="line w50"></div><div class="line w40"></div></div></div>
+          <div class="wf-row"><div class="avatar"></div><div style="flex:1"><div class="line w60"></div><div class="line w40"></div></div></div>
+          <div class="wf-row"><div class="avatar"></div><div style="flex:1"><div class="line w40"></div><div class="line w50"></div></div></div>
+          <div class="wf-row"><div class="avatar"></div><div style="flex:1"><div class="line w55"></div><div class="line w40"></div></div></div>
+          <div class="spacer"></div>
+          <div class="cta">انتخاب</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">WF-04 · مبلغ</span><span class="size">390 × 844</span></div>
+      <div class="phone wf" data-frame="WF-04">
+        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
+        <div class="pad">
+          <div class="bar"></div>
+          <div class="box sm"></div>
+          <div class="box lg" style="display:grid;place-items:center;font-weight:800;color:#60756D;font-size:22px">۰ تومان</div>
+          <div class="box sm"></div>
+          <div class="box sm"></div>
+          <div class="spacer"></div>
+          <div class="cta">ادامه به بازبینی</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">WF-05 · بازبینی</span><span class="size">390 × 844</span></div>
+      <div class="phone wf" data-frame="WF-05">
+        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
+        <div class="pad">
+          <div class="bar"></div>
+          <div class="box lg" style="height:200px;display:grid;place-items:center;text-align:center;color:#60756D;font-weight:700;padding:16px">
+            خلاصه قرض<br><span style="font-weight:500;font-size:12px">طرف · مبلغ · سررسید</span>
+          </div>
+          <div class="spacer"></div>
+          <div class="cta">ثبت و ارسال برای تأیید</div>
+          <div class="hint">وجه در اپ جابه‌جا نمی‌شود</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">WF-06 · موفقیت</span><span class="size">390 × 844</span></div>
+      <div class="phone wf" data-frame="WF-06">
+        <div class="status"><span>۹:۴۱</span><span>LTE</span></div>
+        <div class="pad">
+          <div class="spacer"></div>
+          <div class="box lg" style="height:180px;display:grid;place-items:center;text-align:center;color:#60756D;font-weight:700;padding:16px">
+            ثبت شد<br><span style="font-weight:500;font-size:12px">منتظر تأیید طرف مقابل</span>
+          </div>
+          <div class="spacer"></div>
           <div class="cta">بازگشت به داشبورد</div>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="section-title">
+    <h2>راهنمای اکسپورت به Figma</h2>
+  </div>
+  <div class="page-head" style="margin:0">
+    <p>
+      ۱) روی هر فریم <code>390 × 844</code> زوم کنید و اسکرین جدا بگیرید (بدون لیبل بالای فریم).<br>
+      ۲) در Figma: Frame با عرض ۳۹۰ و ارتفاع ۸۴۴ بسازید و تصویر را داخلش Paste کنید.<br>
+      ۳) برای کیفیت بهتر می‌توانید با افزونه html.to.design یا GoFullPage کار کنید.<br>
+      ۴) حداقل UI-01 و UI-04 را رنگی نگه دارید؛ بقیه مسیر با WF هم قابل قبول تسک است.<br>
+      ۵) Share → View برای <code>hana.pkhki.qanbari@gmail.com</code>
+    </p>
   </div>
 </body>
 </html>
