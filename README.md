@@ -1,29 +1,26 @@
-# هم‌حساب — تسک طراحی تجربه و رابط کاربری مهیمن
+# هم‌حساب
 
-اپلیکیشن ثبت و مدیریت قرض بین دانش‌آموزان یک کلاس (دبیرستان پسرانه شهید عباسی).  
-انتقال وجه واقعی انجام نمی‌شود؛ فقط ثبت، تأیید و پیگیری مبالغ.
+اپلیکیشن ثبت و مدیریت قرض بین دانش‌آموزان یک کلاس.
 
-## مشاهده آنلاین (GitHub Pages)
+## مشاهده آنلاین
 
-- صفحه اصلی: https://ali-ft.github.io/ham-hesab/
+- https://ali-ft.github.io/ham-hesab/
 - پروتوتایپ: https://ali-ft.github.io/ham-hesab/prototype/app.html
-- ارائه کامل: https://ali-ft.github.io/ham-hesab/presentation/
+- ارائه: https://ali-ft.github.io/ham-hesab/presentation/
+- فریم‌های طراحی: https://ali-ft.github.io/ham-hesab/presentation/figma-frames.html
 
-## محتویات
+## ساختار
 
-| بخش | مسیر |
-|-----|------|
-| لندینگ | `index.html` |
-| پروتوتایپ تعاملی | `prototype/app.html` |
-| ارائه UX | `presentation/index.html` |
-| فریم‌های Figma | `presentation/figma-frames.html` |
-| Use Caseها | `docs/usecases.md` |
-| راهنمای Figma | `docs/figma-handoff.md` |
+```
+index.html
+prototype/app.html
+presentation/index.html
+presentation/figma-frames.html
+docs/
+```
 
 ## اجرای محلی
 
 ```bash
 python3 -m http.server 8766
 ```
-
-سپس http://localhost:8766 را باز کنید.
