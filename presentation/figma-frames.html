@@ -189,6 +189,32 @@
     }
     .chip.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-deep); }
 
+    .label {
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      margin: 2px 0 8px;
+    }
+    .party-card {
+      display: flex; align-items: center; gap: 10px;
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 16px; padding: 12px; margin-bottom: 12px;
+    }
+    .party-card .meta { font-size: 12px; color: var(--muted); }
+    .badge-soft {
+      display: inline-block; margin-top: 4px;
+      font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px;
+      background: var(--brand-soft); color: var(--brand-deep);
+    }
+    .due-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .due-btn {
+      border: 1px solid var(--line); background: #fff; border-radius: 14px;
+      padding: 12px 10px; font-size: 13px; font-weight: 700; color: var(--ink); text-align: center;
+    }
+    .due-btn.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-deep); }
+    .field-foot {
+      display: flex; justify-content: space-between; margin: 6px 0 10px;
+      font-size: 11px; color: var(--muted);
+    }
+
     .field {
       width: 100%; border: 1px solid var(--line); background: #fff;
       border-radius: 14px; padding: 13px 14px; font-size: 14px; color: var(--ink);
@@ -441,11 +467,6 @@
               <div><div class="t">مهدی رضایی</div><div class="s">جزوه فیزیک</div></div>
               <div class="amt plus">+۹۰٬۰۰۰</div>
             </div>
-            <div class="item">
-              <div class="av" style="background:#5B6B64">ک</div>
-              <div><div class="t">کیان احمدی</div><div class="s">شما بدهکارید</div></div>
-              <div class="amt minus">−۴۰٬۰۰۰</div>
-            </div>
           </div>
           <div class="cta">＋ ثبت قرض جدید</div>
           <div class="hint">وجه در اپ جابه‌جا نمی‌شود — فقط ثبت می‌شود</div>
@@ -525,8 +546,18 @@
             <div class="mid">مبلغ و جزئیات</div>
             <div class="step">۳/۴</div>
           </div>
-          <div class="pending">به: مهدی رضایی · یازدهم ریاضی</div>
-          <div class="amount-box">
+
+          <div class="party-card">
+            <div class="av" style="background:#C9892C">م</div>
+            <div>
+              <div class="t">به مهدی رضایی</div>
+              <div class="meta">میز ۳ · یازدهم ریاضی</div>
+              <span class="badge-soft">قرض دادم</span>
+            </div>
+          </div>
+
+          <div class="label">مبلغ (تومان)</div>
+          <div class="amount-box" style="border-color:var(--brand)">
             <div class="num">۱۵۰٬۰۰۰</div>
             <div class="unit">تومان</div>
             <div class="quick">
@@ -534,10 +565,29 @@
               <span class="chip">۱۰۰٬۰۰۰</span>
               <span class="chip on">۱۵۰٬۰۰۰</span>
               <span class="chip">۲۰۰٬۰۰۰</span>
+              <span class="chip">۵۰۰٬۰۰۰</span>
             </div>
           </div>
-          <div class="field">ناهار سلف</div>
-          <div class="field">۵ روز دیگر</div>
+
+          <div class="label">بابت چه چیزی؟</div>
+          <div class="quick" style="justify-content:flex-start;margin-top:0;margin-bottom:10px">
+            <span class="chip on">ناهار</span>
+            <span class="chip">جزوه</span>
+            <span class="chip">کرایه</span>
+            <span class="chip">خرید</span>
+            <span class="chip">سایر</span>
+          </div>
+          <div class="field" style="margin-bottom:0">ناهار سلف</div>
+          <div class="field-foot"><span>اختیاری ولی مفید برای یادآوری</span><span>۹/۶۰</span></div>
+
+          <div class="label">سررسید بازپرداخت</div>
+          <div class="due-grid">
+            <div class="due-btn">امروز</div>
+            <div class="due-btn on">۳ روز دیگر</div>
+            <div class="due-btn">۱ هفته دیگر</div>
+            <div class="due-btn">بدون سررسید</div>
+          </div>
+
           <div class="spacer"></div>
           <div class="cta">ادامه به بازبینی</div>
         </div>
@@ -559,8 +609,8 @@
             <div class="r"><span class="k">نوع</span><span class="v">قرض دادم</span></div>
             <div class="r"><span class="k">طرف مقابل</span><span class="v">مهدی رضایی</span></div>
             <div class="r"><span class="k">مبلغ</span><span class="v">۱۵۰٬۰۰۰ تومان</span></div>
-            <div class="r"><span class="k">یادداشت</span><span class="v">ناهار سلف</span></div>
-            <div class="r"><span class="k">سررسید</span><span class="v">۵ روز دیگر</span></div>
+            <div class="r"><span class="k">بابت</span><span class="v">ناهار سلف</span></div>
+            <div class="r"><span class="k">سررسید</span><span class="v">۳ روز دیگر</span></div>
             <div class="r"><span class="k">وضعیت پس از ثبت</span><span class="v">در انتظار تأیید</span></div>
           </div>
           <div class="hint right">با ثبت، یک درخواست تأیید برای طرف مقابل ارسال می‌شود. انتقال وجه بیرون از اپ انجام می‌شود.</div>
@@ -629,6 +679,43 @@
           <div class="spacer"></div>
           <div class="cta">ثبت بازپرداخت</div>
           <div class="hint">پس از پرداخت نقدی بیرون از اپ، اینجا ثبت کنید</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI-07b Pending tab -->
+    <div class="frame-wrap">
+      <div class="frame-meta"><span class="name">UI-07b · تب معلق</span><span class="size">390 × 844</span></div>
+      <div class="phone" data-frame="UI-07b">
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
+        <div class="pad">
+          <div class="top">
+            <div>
+              <div class="greet">سلام علی 👋</div>
+              <div class="title-lg">کلاس یازدهم ریاضی</div>
+            </div>
+            <div class="av" style="background:var(--brand)">ع.ف</div>
+          </div>
+          <div class="hero">
+            <div class="k">مانده خالص شما</div>
+            <div class="v">۲۴۰٬۰۰۰ تومان</div>
+            <div class="s">درخواست‌های در انتظار تأیید</div>
+          </div>
+          <div class="pending">۱ درخواست معلق از رضا کریمی — ۶۰٬۰۰۰ تومان</div>
+          <div class="seg">
+            <span>بستانکاری</span>
+            <span>بدهکاری</span>
+            <span class="on">معلق</span>
+          </div>
+          <div class="list">
+            <div class="item">
+              <div class="av" style="background:#8A5A12">ر</div>
+              <div><div class="t">رضا کریمی</div><div class="s">خودکار جزوه · منتظر تأیید شما</div></div>
+              <div class="amt" style="color:var(--warn)">۶۰٬۰۰۰</div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div class="cta">＋ ثبت قرض جدید</div>
         </div>
       </div>
     </div>

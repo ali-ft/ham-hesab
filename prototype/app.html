@@ -79,19 +79,19 @@
       display: flex; justify-content: space-between;
       padding: 2px 22px 0; font-size: 12px; font-weight: 700;
     }
-    .view { display: none; flex: 1; flex-direction: column; padding: 8px 16px 20px; }
+    .view { display: none; flex: 1; flex-direction: column; padding: 8px 16px 20px; min-height: 0; }
     .view.active { display: flex; }
     .top {
       display: flex; align-items: center; justify-content: space-between;
-      min-height: 44px; margin-bottom: 8px;
+      min-height: 44px; margin-bottom: 8px; gap: 8px;
     }
     .top .title { font-weight: 800; font-size: 16px; }
     .icon-btn {
       width: 36px; height: 36px; border: 0; border-radius: 12px;
       background: #E7EEEC; color: var(--ink); font-size: 16px; cursor: pointer;
-      font-family: "Vazirmatn", sans-serif;
+      font-family: "Vazirmatn", sans-serif; flex-shrink: 0;
     }
-    .step { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .step { font-size: 12px; color: var(--muted); font-weight: 600; flex-shrink: 0; }
     .hero {
       background: linear-gradient(145deg, var(--brand), var(--brand-deep));
       color: #fff; border-radius: 22px; padding: 18px; margin: 6px 0 14px;
@@ -108,14 +108,14 @@
       font-size: 12px; font-weight: 700; background: #E7EEEC; color: #456057; cursor: pointer;
     }
     .seg button.on { background: var(--brand-soft); color: var(--brand-deep); }
-    .list { display: flex; flex-direction: column; gap: 8px; flex: 1; overflow: auto; }
+    .list { display: flex; flex-direction: column; gap: 8px; flex: 1; overflow: auto; min-height: 0; }
     .item {
       display: flex; align-items: center; gap: 10px; width: 100%;
       background: #fff; border: 1px solid var(--line);
       border-radius: 16px; padding: 12px; cursor: pointer;
       font-family: "Vazirmatn", sans-serif;
       color: var(--ink); text-align: right;
-      transition: border-color .15s ease, transform .15s ease;
+      transition: border-color .15s ease, background .15s ease;
     }
     .item:hover, .item.selected { border-color: var(--brand); }
     .item.selected { background: #F2FAF7; }
@@ -125,23 +125,30 @@
     }
     .item .t { font-size: 14px; font-weight: 700; }
     .item .s { font-size: 12px; color: var(--muted); }
-    .amt { margin-right: auto; font-size: 13px; font-weight: 800; }
+    .amt { margin-right: auto; font-size: 13px; font-weight: 800; white-space: nowrap; }
     .amt.plus { color: var(--lend); }
     .amt.minus { color: var(--borrow); }
+    .amt.warn { color: var(--warn); }
     .cta {
       margin-top: 12px; width: 100%; height: 52px; border: 0; border-radius: 16px;
       background: var(--brand); color: #fff;
       font-family: "Vazirmatn", sans-serif;
-      font-size: 15px; font-weight: 700; cursor: pointer;
+      font-size: 15px; font-weight: 700; cursor: pointer; flex-shrink: 0;
     }
     .cta:disabled { opacity: .45; cursor: not-allowed; }
     .cta.ghost {
       background: transparent; color: var(--brand);
       border: 1.5px solid var(--brand);
     }
-    .hint {
-      text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px;
+    .cta.danger {
+      background: transparent; color: var(--borrow);
+      border: 1.5px solid var(--borrow);
     }
+    .hint {
+      text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; line-height: 1.6;
+    }
+    .hint.right { text-align: right; margin-bottom: auto; margin-top: 8px; }
+    .hint.error { color: var(--borrow); margin-top: 6px; }
     .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 18px; }
     .type {
       border: 1.5px solid var(--line); background: #fff; border-radius: 18px;
@@ -157,24 +164,76 @@
       margin-bottom: 12px; outline: none;
     }
     .search:focus { border-color: var(--brand); }
-    .amount-box {
-      background: #fff; border: 1px solid var(--line); border-radius: 20px;
-      padding: 22px 12px; text-align: center; margin: 8px 0 14px;
+    .party-card {
+      display: flex; align-items: center; gap: 10px;
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 16px; padding: 12px; margin-bottom: 12px;
     }
+    .party-card .meta { font-size: 12px; color: var(--muted); }
+    .badge-soft {
+      display: inline-block; margin-top: 4px;
+      font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px;
+      background: var(--brand-soft); color: var(--brand-deep);
+    }
+    .badge-soft.borrow { background: #FCEDEA; color: #8E3B2F; }
+    .label {
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      margin: 4px 0 8px;
+    }
+    .amount-box {
+      background: #fff; border: 1.5px solid var(--line); border-radius: 20px;
+      padding: 18px 12px 14px; text-align: center; margin-bottom: 4px;
+      transition: border-color .15s ease;
+    }
+    .amount-box.focus { border-color: var(--brand); }
+    .amount-box.error { border-color: var(--borrow); }
     .amount-box input {
       width: 100%; border: 0; outline: none; text-align: center;
       font-family: "Vazirmatn", sans-serif; font-size: 36px; font-weight: 800;
       background: transparent; color: var(--ink);
-      -webkit-font-smoothing: antialiased;
     }
     .unit { color: var(--muted); font-size: 13px; font-weight: 600; }
+    .quick {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px;
+    }
+    .chip {
+      border: 1px solid var(--line); background: #fff; border-radius: 999px;
+      padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer;
+      font-family: "Vazirmatn", sans-serif; color: var(--ink);
+    }
+    .chip.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-deep); }
+    .field-wrap { margin-top: 12px; }
     .field {
       width: 100%; border: 1px solid var(--line); background: #fff;
       border-radius: 14px; padding: 13px 14px;
       font-family: "Vazirmatn", sans-serif; font-size: 14px; color: var(--ink);
-      margin-bottom: 10px; outline: none;
+      outline: none;
     }
     .field:focus { border-color: var(--brand); }
+    .field-foot {
+      display: flex; justify-content: space-between; margin-top: 6px;
+      font-size: 11px; color: var(--muted);
+    }
+    .due-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+    }
+    .due-btn {
+      border: 1px solid var(--line); background: #fff; border-radius: 14px;
+      padding: 12px 10px; font-size: 13px; font-weight: 700; cursor: pointer;
+      font-family: "Vazirmatn", sans-serif; color: var(--ink); text-align: center;
+    }
+    .due-btn.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-deep); }
+    .pending {
+      background: #FFF7E8; border: 1px solid #E8C98A; border-radius: 14px;
+      padding: 10px 12px; font-size: 12px; color: #8A5A12; margin-bottom: 12px;
+      font-weight: 600; cursor: pointer; text-align: right; width: 100%;
+      font-family: "Vazirmatn", sans-serif;
+    }
+    .pending:hover { background: #FFF1D6; }
+    .empty {
+      flex: 1; display: grid; place-items: center; text-align: center;
+      color: var(--muted); font-size: 14px; padding: 24px; line-height: 1.8;
+    }
     .summary {
       background: #fff; border: 1px solid var(--line); border-radius: 20px;
       padding: 16px; margin: 8px 0 12px;
@@ -185,7 +244,7 @@
     }
     .summary .row:last-child { border-bottom: 0; }
     .summary .k { color: var(--muted); }
-    .summary .v { font-weight: 700; }
+    .summary .v { font-weight: 700; text-align: left; }
     .success {
       flex: 1; display: flex; flex-direction: column; align-items: center;
       justify-content: center; text-align: center; padding: 20px;
@@ -195,76 +254,33 @@
       background: var(--brand-soft); color: var(--brand);
       display: grid; place-items: center; font-size: 36px; margin-bottom: 16px;
     }
-    .quick {
-      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px;
-    }
-    .chip {
-      border: 1px solid var(--line); background: #fff; border-radius: 999px;
-      padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer;
-      font-family: "Vazirmatn", sans-serif; color: var(--ink);
-    }
-    .pending {
-      background: #FFF7E8; border: 1px solid #E8C98A; border-radius: 14px;
-      padding: 10px 12px; font-size: 12px; color: #8A5A12; margin-bottom: 12px;
-    }
+    .scroll-body { flex: 1; overflow: auto; min-height: 0; }
 
-    /* Responsive */
     @media (max-width: 900px) {
       body { padding: 16px 12px 28px; align-content: start; }
-      .stage {
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-      }
+      .stage { width: 100%; flex-direction: column; align-items: center; gap: 16px; }
       .side { order: 2; width: min(390px, 100%); }
       .device { order: 1; width: min(390px, 100%); }
       .hero .v { font-size: 26px; }
       .amount-box input { font-size: 30px; }
     }
-
     @media (max-width: 480px) {
-      body {
-        padding: 0;
-        display: block;
-        background: var(--paper);
-      }
+      body { padding: 0; display: block; background: var(--paper); }
       .stage { gap: 0; }
       .side {
-        order: 2;
-        width: 100%;
-        border-radius: 0;
-        border: 0;
-        border-top: 1px solid var(--line);
-        background: #fff;
+        order: 2; width: 100%; border-radius: 0; border: 0;
+        border-top: 1px solid var(--line); background: #fff;
       }
       .device {
-        order: 1;
-        width: 100%;
-        max-width: 100%;
-        border-radius: 0;
-        padding: 0;
-        box-shadow: none;
-        background: transparent;
+        order: 1; width: 100%; max-width: 100%; border-radius: 0;
+        padding: 0; box-shadow: none; background: transparent;
       }
-      .screen {
-        min-height: 100dvh;
-        border-radius: 0;
-      }
+      .screen { min-height: 100dvh; border-radius: 0; }
       .notch { display: none; }
       .status { padding-top: 10px; }
       .view { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
       .hero .v { font-size: clamp(22px, 8vw, 28px); }
       .amount-box input { font-size: clamp(28px, 10vw, 36px); }
-      .seg button { font-size: 11px; padding: 10px 4px; }
-      .item .t { font-size: 13px; }
-      .amt { font-size: 12px; }
-    }
-
-    @media (max-height: 720px) and (min-width: 481px) {
-      .screen { min-height: 640px; }
-      .hero { padding: 14px; }
-      .hero .v { font-size: 24px; }
     }
   </style>
 </head>
@@ -300,19 +316,17 @@
           <div class="hero">
             <div class="k">مانده خالص شما</div>
             <div class="v" id="netBalance">۲۴۰٬۰۰۰ تومان</div>
-            <div class="s">۳ نفر به شما بدهکارند · شما به ۱ نفر بدهکارید</div>
+            <div class="s" id="netSub">۳ نفر به شما بدهکارند · شما به ۱ نفر بدهکارید</div>
           </div>
-          <div class="pending">۱ درخواست معلق از رضا کریمی — ۶۰٬۰۰۰ تومان</div>
-          <div class="seg">
-            <button class="on" type="button">بستانکاری</button>
-            <button type="button">بدهکاری</button>
-            <button type="button">معلق</button>
+          <button class="pending" id="pendingBanner" type="button" onclick="openPending(4)">
+            ۱ درخواست معلق از رضا کریمی — ۶۰٬۰۰۰ تومان
+          </button>
+          <div class="seg" id="homeTabs">
+            <button class="on" type="button" data-tab="credit" onclick="setHomeTab('credit')">بستانکاری</button>
+            <button type="button" data-tab="debt" onclick="setHomeTab('debt')">بدهکاری</button>
+            <button type="button" data-tab="pending" onclick="setHomeTab('pending')">معلق</button>
           </div>
-          <div class="list">
-            <div class="item"><div class="av" style="background:#3E8F7C">س</div><div><div class="t">سارا محمدی</div><div class="s">ناهار · تا ۵ روز</div></div><div class="amt plus">+۱۵۰٬۰۰۰</div></div>
-            <div class="item"><div class="av" style="background:#C9892C">م</div><div><div class="t">مهدی رضایی</div><div class="s">جزوه فیزیک</div></div><div class="amt plus">+۹۰٬۰۰۰</div></div>
-            <div class="item"><div class="av" style="background:#5B6B64">ک</div><div><div class="t">کیان احمدی</div><div class="s">شما بدهکارید</div></div><div class="amt minus">−۴۰٬۰۰۰</div></div>
-          </div>
+          <div class="list" id="homeList"></div>
           <button class="cta" type="button" onclick="go('type')">＋ ثبت قرض جدید</button>
           <p class="hint">وجه در اپ جابه‌جا نمی‌شود — فقط ثبت می‌شود</p>
         </section>
@@ -326,16 +340,10 @@
           </div>
           <p style="color:var(--muted);font-size:14px;margin:8px 0 4px">چه نوع ثبتی می‌خواهید؟</p>
           <div class="type-grid">
-            <button class="type on" type="button" data-loan-type="lend" onclick="selectType(this)">
-              قرض دادم
-            </button>
-            <button class="type" type="button" data-loan-type="borrow" onclick="selectType(this)">
-              قرض گرفتم
-            </button>
+            <button class="type on" type="button" data-loan-type="lend" onclick="selectType(this)">قرض دادم</button>
+            <button class="type" type="button" data-loan-type="borrow" onclick="selectType(this)">قرض گرفتم</button>
           </div>
-          <p class="hint" style="text-align:right;margin-bottom:auto">
-            بعد از ثبت، طرف مقابل باید تأیید کند تا مانده به‌روز شود.
-          </p>
+          <p class="hint right">بعد از ثبت، طرف مقابل باید تأیید کند تا مانده به‌روز شود.</p>
           <button class="cta" type="button" onclick="go('classmate')">ادامه</button>
         </section>
 
@@ -358,21 +366,54 @@
             <div class="title">مبلغ و جزئیات</div>
             <div class="step">۳/۴</div>
           </div>
-          <div class="pending" id="partyLabel">به: —</div>
-          <div class="amount-box">
-            <input id="amountInput" inputmode="numeric" placeholder="۰" value="۱۵۰٬۰۰۰" oninput="formatAmount()" />
-            <div class="unit">تومان</div>
-            <div class="quick">
-              <button class="chip" type="button" onclick="setAmount(50000)">۵۰٬۰۰۰</button>
-              <button class="chip" type="button" onclick="setAmount(100000)">۱۰۰٬۰۰۰</button>
-              <button class="chip" type="button" onclick="setAmount(150000)">۱۵۰٬۰۰۰</button>
-              <button class="chip" type="button" onclick="setAmount(200000)">۲۰۰٬۰۰۰</button>
+
+          <div class="scroll-body">
+            <div class="party-card" id="partyCard"></div>
+
+            <div class="label">مبلغ (تومان)</div>
+            <div class="amount-box" id="amountBox">
+              <input id="amountInput" inputmode="numeric" placeholder="۰" value="۰"
+                onfocus="amountBoxFocus(true)" onblur="amountBoxFocus(false)" oninput="onAmountInput()" />
+              <div class="unit">تومان</div>
+              <div class="quick" id="amountChips">
+                <button class="chip" type="button" data-amt="50000" onclick="setAmount(50000)">۵۰٬۰۰۰</button>
+                <button class="chip" type="button" data-amt="100000" onclick="setAmount(100000)">۱۰۰٬۰۰۰</button>
+                <button class="chip" type="button" data-amt="150000" onclick="setAmount(150000)">۱۵۰٬۰۰۰</button>
+                <button class="chip" type="button" data-amt="200000" onclick="setAmount(200000)">۲۰۰٬۰۰۰</button>
+                <button class="chip" type="button" data-amt="500000" onclick="setAmount(500000)">۵۰۰٬۰۰۰</button>
+              </div>
+            </div>
+            <p class="hint error" id="amountError" hidden>مبلغ باید بیشتر از صفر باشد.</p>
+
+            <div class="field-wrap">
+              <div class="label">بابت چه چیزی؟</div>
+              <div class="quick" id="reasonChips" style="justify-content:flex-start">
+                <button class="chip on" type="button" data-reason="ناهار سلف" onclick="setReason(this)">ناهار</button>
+                <button class="chip" type="button" data-reason="جزوه / کتاب" onclick="setReason(this)">جزوه</button>
+                <button class="chip" type="button" data-reason="کرایه تاکسی" onclick="setReason(this)">کرایه</button>
+                <button class="chip" type="button" data-reason="خرید مشترک" onclick="setReason(this)">خرید</button>
+                <button class="chip" type="button" data-reason="سایر" onclick="setReason(this)">سایر</button>
+              </div>
+              <input class="field" id="noteInput" type="text" maxlength="60" placeholder="یادداشت کوتاه…"
+                value="ناهار سلف" oninput="onNoteInput()" style="margin-top:10px" />
+              <div class="field-foot">
+                <span>اختیاری ولی مفید برای یادآوری</span>
+                <span id="noteCount">۹/۶۰</span>
+              </div>
+            </div>
+
+            <div class="field-wrap">
+              <div class="label">سررسید بازپرداخت</div>
+              <div class="due-grid" id="dueGrid">
+                <button class="due-btn" type="button" data-due="امروز" onclick="setDue(this)">امروز</button>
+                <button class="due-btn on" type="button" data-due="۳ روز دیگر" onclick="setDue(this)">۳ روز دیگر</button>
+                <button class="due-btn" type="button" data-due="۱ هفته دیگر" onclick="setDue(this)">۱ هفته دیگر</button>
+                <button class="due-btn" type="button" data-due="بدون سررسید" onclick="setDue(this)">بدون سررسید</button>
+              </div>
             </div>
           </div>
-          <input class="field" id="noteInput" type="text" placeholder="یادداشت (مثلاً ناهار سلف)" value="ناهار سلف" />
-          <input class="field" id="dueInput" type="text" placeholder="سررسید (مثلاً ۵ روز دیگر)" value="۵ روز دیگر" />
-          <div style="flex:1"></div>
-          <button class="cta" type="button" onclick="go('review')">ادامه به بازبینی</button>
+
+          <button class="cta" id="amountNext" type="button" onclick="goAmountNext()">ادامه به بازبینی</button>
         </section>
 
         <!-- REVIEW -->
@@ -383,9 +424,7 @@
             <div class="step">۴/۴</div>
           </div>
           <div class="summary" id="summaryBox"></div>
-          <p class="hint" style="text-align:right;margin-bottom:auto">
-            با ثبت، یک درخواست تأیید برای طرف مقابل ارسال می‌شود. انتقال وجه بیرون از اپ انجام می‌شود.
-          </p>
+          <p class="hint right">با ثبت، یک درخواست تأیید برای طرف مقابل ارسال می‌شود. انتقال وجه بیرون از اپ انجام می‌شود.</p>
           <button class="cta" type="button" onclick="submitLoan()">ثبت و ارسال برای تأیید</button>
         </section>
 
@@ -399,7 +438,21 @@
             </p>
           </div>
           <button class="cta" type="button" onclick="resetFlow()">بازگشت به داشبورد</button>
-          <button class="cta ghost" type="button" style="margin-top:8px" onclick="go('type')">ثبت قرض دیگر</button>
+          <button class="cta ghost" type="button" style="margin-top:8px" onclick="startNewLoan()">ثبت قرض دیگر</button>
+        </section>
+
+        <!-- CONFIRM PENDING -->
+        <section class="view" id="confirm">
+          <div class="top">
+            <button class="icon-btn" type="button" onclick="go('home')" aria-label="بازگشت">→</button>
+            <div class="title">درخواست معلق</div>
+            <div class="step">تأیید</div>
+          </div>
+          <div class="pending" style="cursor:default" id="confirmIntro">منتظر تأیید شماست</div>
+          <div class="summary" id="confirmBox"></div>
+          <div style="flex:1"></div>
+          <button class="cta" type="button" onclick="resolvePending(true)">تأیید می‌کنم</button>
+          <button class="cta danger" type="button" style="margin-top:8px" onclick="resolvePending(false)">رد کردن</button>
         </section>
       </div>
     </div>
@@ -414,12 +467,28 @@
       { id: 5, name: "امیر حسینی", initial: "ا", color: "#2F6F8F", meta: "میز ۴ · یازدهم ریاضی" },
     ];
 
+    const homeData = {
+      credit: [
+        { name: "سارا محمدی", initial: "س", color: "#3E8F7C", sub: "ناهار · تا ۵ روز", amount: "+۱۵۰٬۰۰۰", cls: "plus" },
+        { name: "مهدی رضایی", initial: "م", color: "#C9892C", sub: "جزوه فیزیک", amount: "+۹۰٬۰۰۰", cls: "plus" },
+      ],
+      debt: [
+        { name: "کیان احمدی", initial: "ک", color: "#5B6B64", sub: "کرایه تاکسی · سررسید فردا", amount: "−۴۰٬۰۰۰", cls: "minus" },
+      ],
+      pending: [
+        { id: 4, name: "رضا کریمی", initial: "ر", color: "#8A5A12", sub: "خودکار جزوه · منتظر تأیید شما", amount: "۶۰٬۰۰۰", cls: "warn" },
+      ],
+    };
+
     const state = {
       loanType: "lend",
       classmate: null,
-      amount: 150000,
+      amount: 0,
       note: "ناهار سلف",
-      due: "۵ روز دیگر",
+      due: "۳ روز دیگر",
+      homeTab: "credit",
+      pendingPersonId: 4,
+      amountTouched: false,
     };
 
     function toFaDigits(str) {
@@ -443,14 +512,68 @@
 
     function go(id) {
       if (id === "review") buildSummary();
-      if (id === "amount") {
-        document.getElementById("partyLabel").textContent =
-          (state.loanType === "lend" ? "به: " : "از: ") +
-          (state.classmate ? state.classmate.name : "—");
-        formatAmount();
-      }
+      if (id === "amount") prepareAmountScreen();
       document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
       document.getElementById(id).classList.add("active");
+    }
+
+    function setHomeTab(tab) {
+      state.homeTab = tab;
+      document.querySelectorAll("#homeTabs button").forEach(btn => {
+        btn.classList.toggle("on", btn.dataset.tab === tab);
+      });
+      renderHomeList();
+    }
+
+    function renderHomeList() {
+      const list = document.getElementById("homeList");
+      const rows = homeData[state.homeTab] || [];
+      if (!rows.length) {
+        list.innerHTML = `<div class="empty">موردی در این بخش نیست.</div>`;
+        return;
+      }
+      list.innerHTML = rows.map(r => `
+        <button class="item" type="button" ${r.id ? `onclick="openPending(${r.id})"` : ""}>
+          <div class="av" style="background:${r.color}">${r.initial}</div>
+          <div>
+            <div class="t">${r.name}</div>
+            <div class="s">${r.sub}</div>
+          </div>
+          <div class="amt ${r.cls}">${r.amount}</div>
+        </button>
+      `).join("");
+    }
+
+    function openPending(id) {
+      state.pendingPersonId = id;
+      const person = classmates.find(c => c.id === id) || classmates[3];
+      document.getElementById("confirmIntro").textContent =
+        `${person.name} این قرض را ثبت کرده و منتظر تأیید شماست`;
+      document.getElementById("confirmBox").innerHTML = `
+        <div class="row"><span class="k">نوع از دید شما</span><span class="v">قرض گرفتم</span></div>
+        <div class="row"><span class="k">طرف مقابل</span><span class="v">${person.name}</span></div>
+        <div class="row"><span class="k">مبلغ</span><span class="v">۶۰٬۰۰۰ تومان</span></div>
+        <div class="row"><span class="k">یادداشت</span><span class="v">خودکار جزوه</span></div>
+        <div class="row"><span class="k">سررسید</span><span class="v">۳ روز دیگر</span></div>
+      `;
+      go("confirm");
+    }
+
+    function resolvePending(accepted) {
+      homeData.pending = [];
+      document.getElementById("pendingBanner").hidden = true;
+      document.getElementById("netSub").textContent = accepted
+        ? "درخواست تأیید شد · مانده به‌روز می‌شود"
+        : "درخواست رد شد";
+      if (accepted) {
+        homeData.debt.push({
+          name: "رضا کریمی", initial: "ر", color: "#8A5A12",
+          sub: "خودکار جزوه · تازه تأیید شد", amount: "−۶۰٬۰۰۰", cls: "minus",
+        });
+        document.getElementById("netBalance").textContent = "۱۸۰٬۰۰۰ تومان";
+      }
+      setHomeTab(accepted ? "debt" : "credit");
+      go("home");
     }
 
     function selectType(el) {
@@ -462,17 +585,20 @@
     function renderClassmates(filter = "") {
       const list = document.getElementById("classmateList");
       const q = filter.trim();
-      list.innerHTML = classmates
-        .filter(c => !q || c.name.includes(q))
-        .map(c => `
-          <button class="item ${state.classmate?.id === c.id ? "selected" : ""}" type="button" onclick="pickClassmate(${c.id})">
-            <div class="av" style="background:${c.color}">${c.initial}</div>
-            <div>
-              <div class="t">${c.name}</div>
-              <div class="s">${c.meta}</div>
-            </div>
-          </button>
-        `).join("");
+      const items = classmates.filter(c => !q || c.name.includes(q));
+      if (!items.length) {
+        list.innerHTML = `<div class="empty">هم‌کلاسی‌ای با این نام پیدا نشد.</div>`;
+        return;
+      }
+      list.innerHTML = items.map(c => `
+        <button class="item ${state.classmate?.id === c.id ? "selected" : ""}" type="button" onclick="pickClassmate(${c.id})">
+          <div class="av" style="background:${c.color}">${c.initial}</div>
+          <div>
+            <div class="t">${c.name}</div>
+            <div class="s">${c.meta}</div>
+          </div>
+        </button>
+      `).join("");
     }
 
     function filterClassmates() {
@@ -485,27 +611,97 @@
       renderClassmates(document.getElementById("search").value);
     }
 
-    function setAmount(n) {
-      state.amount = n;
-      document.getElementById("amountInput").value = formatNumberFa(n);
-      formatAmount();
+    function prepareAmountScreen() {
+      const person = state.classmate;
+      const isLend = state.loanType === "lend";
+      document.getElementById("partyCard").innerHTML = person ? `
+        <div class="av" style="background:${person.color}">${person.initial}</div>
+        <div>
+          <div class="t" style="font-weight:800">${isLend ? "به" : "از"} ${person.name}</div>
+          <div class="meta">${person.meta}</div>
+          <span class="badge-soft ${isLend ? "" : "borrow"}">${isLend ? "قرض دادم" : "قرض گرفتم"}</span>
+        </div>
+      ` : `<div class="meta">طرف مقابل انتخاب نشده</div>`;
+      syncAmountUI();
+      onNoteInput();
     }
 
-    function formatAmount() {
+    function amountBoxFocus(on) {
+      document.getElementById("amountBox").classList.toggle("focus", on);
+    }
+
+    function syncAmountUI() {
+      const valid = state.amount > 0;
+      document.getElementById("amountNext").disabled = !valid;
+      const showError = state.amountTouched && !valid;
+      document.getElementById("amountError").hidden = !showError;
+      document.getElementById("amountBox").classList.toggle("error", showError);
+      document.querySelectorAll("#amountChips .chip").forEach(chip => {
+        chip.classList.toggle("on", Number(chip.dataset.amt) === state.amount);
+      });
+    }
+
+    function setAmount(n) {
+      state.amount = n;
+      state.amountTouched = true;
+      document.getElementById("amountInput").value = formatNumberFa(n);
+      syncAmountUI();
+    }
+
+    function onAmountInput() {
+      state.amountTouched = true;
       const raw = onlyDigits(document.getElementById("amountInput").value) || "0";
       state.amount = Number(raw);
       document.getElementById("amountInput").value = formatNumberFa(raw);
+      syncAmountUI();
+    }
+
+    function setReason(el) {
+      document.querySelectorAll("#reasonChips .chip").forEach(c => c.classList.remove("on"));
+      el.classList.add("on");
+      const reason = el.dataset.reason;
+      if (reason !== "سایر") {
+        document.getElementById("noteInput").value = reason;
+        state.note = reason;
+      } else {
+        document.getElementById("noteInput").value = "";
+        state.note = "";
+        document.getElementById("noteInput").focus();
+      }
+      onNoteInput();
+    }
+
+    function onNoteInput() {
+      const val = document.getElementById("noteInput").value.slice(0, 60);
+      document.getElementById("noteInput").value = val;
+      state.note = val;
+      document.getElementById("noteCount").textContent = `${toFaDigits(val.length)}/۶۰`;
+      document.querySelectorAll("#reasonChips .chip").forEach(chip => {
+        chip.classList.toggle("on", chip.dataset.reason === val || (chip.dataset.reason === "سایر" && !["ناهار سلف","جزوه / کتاب","کرایه تاکسی","خرید مشترک"].includes(val) && val !== ""));
+      });
+    }
+
+    function setDue(el) {
+      document.querySelectorAll("#dueGrid .due-btn").forEach(b => b.classList.remove("on"));
+      el.classList.add("on");
+      state.due = el.dataset.due;
+    }
+
+    function goAmountNext() {
+      state.amountTouched = true;
+      syncAmountUI();
+      if (state.amount <= 0) return;
+      go("review");
     }
 
     function buildSummary() {
-      state.note = document.getElementById("noteInput").value || "—";
-      state.due = document.getElementById("dueInput").value || "بدون سررسید";
+      state.note = document.getElementById("noteInput").value.trim() || "بدون یادداشت";
       const typeLabel = state.loanType === "lend" ? "قرض دادم" : "قرض گرفتم";
       document.getElementById("summaryBox").innerHTML = `
         <div class="row"><span class="k">نوع</span><span class="v">${typeLabel}</span></div>
         <div class="row"><span class="k">طرف مقابل</span><span class="v">${state.classmate?.name || "—"}</span></div>
         <div class="row"><span class="k">مبلغ</span><span class="v">${formatToman(state.amount)}</span></div>
-        <div class="row"><span class="k">یادداشت</span><span class="v">${state.note}</span></div>
+        <div class="row"><span class="k">بابت</span><span class="v">${state.note}</span></div>
         <div class="row"><span class="k">سررسید</span><span class="v">${state.due}</span></div>
         <div class="row"><span class="k">وضعیت پس از ثبت</span><span class="v">در انتظار تأیید</span></div>
       `;
@@ -518,22 +714,35 @@
       go("success");
     }
 
-    function resetFlow() {
+    function startNewLoan() {
       state.loanType = "lend";
       state.classmate = null;
-      state.amount = 150000;
+      state.amount = 0;
+      state.amountTouched = false;
+      state.note = "ناهار سلف";
+      state.due = "۳ روز دیگر";
       document.getElementById("pickBtn").disabled = true;
       document.querySelectorAll(".type").forEach((t, i) => t.classList.toggle("on", i === 0));
-      document.getElementById("amountInput").value = formatNumberFa(150000);
+      document.getElementById("amountInput").value = "۰";
       document.getElementById("noteInput").value = "ناهار سلف";
-      document.getElementById("dueInput").value = "۵ روز دیگر";
+      document.querySelectorAll("#reasonChips .chip").forEach((c, i) => c.classList.toggle("on", i === 0));
+      document.querySelectorAll("#dueGrid .due-btn").forEach((b, i) => b.classList.toggle("on", i === 1));
       document.getElementById("search").value = "";
       renderClassmates();
+      syncAmountUI();
+      go("type");
+    }
+
+    function resetFlow() {
+      startNewLoan();
+      setHomeTab("credit");
       go("home");
     }
 
     renderClassmates();
-    formatAmount();
+    renderHomeList();
+    syncAmountUI();
+    onNoteInput();
   </script>
 </body>
 </html>
