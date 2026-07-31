@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>هم‌حساب — پروتوتایپ تعاملی</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand: #0F6B5C;
+      --brand-deep: #0A4A3F;
+      --brand-soft: #D8EFE9;
+      --ink: #14201B;
+      --muted: #5B6B64;
+      --line: #D7E2DE;
+      --bg: #E8EEEC;
+      --paper: #F7F9F8;
+      --lend: #1F8A6E;
+      --borrow: #C45C4A;
+      --warn: #C9892C;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, button, input, textarea, select, option {
+      font-family: "Vazirmatn", sans-serif !important;
+    }
+    body {
+      min-height: 100vh;
+      font-family: "Vazirmatn", sans-serif;
+      background:
+        radial-gradient(700px 400px at 20% 0%, rgba(15,107,92,.12), transparent 60%),
+        radial-gradient(600px 360px at 90% 100%, rgba(201,137,44,.12), transparent 55%),
+        var(--bg);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+    }
+    .stage { display: flex; flex-wrap: wrap; gap: 28px; align-items: start; justify-content: center; }
+    .side {
+      width: min(360px, 100%);
+      background: rgba(255,255,255,.72);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      backdrop-filter: blur(8px);
+    }
+    .side h1 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+    .side p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .side ol { margin: 14px 0 0 0; padding-right: 18px; color: var(--muted); font-size: 13px; line-height: 1.8; list-style: none; counter-reset: step; }
+    .side ol li { counter-increment: step; position: relative; padding-right: 22px; }
+    .side ol li::before {
+      content: counter(step, persian) ".";
+      position: absolute; right: 0; font-weight: 700; color: var(--brand);
+    }
+    .device {
+      width: 390px; max-width: 100%;
+      background: #121816;
+      border-radius: 42px;
+      padding: 14px;
+      box-shadow: 0 30px 80px rgba(20,32,27,.25);
+    }
+    .screen {
+      background: var(--paper);
+      border-radius: 32px;
+      min-height: 760px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .notch {
+      width: 110px; height: 28px; background: #121816;
+      border-radius: 0 0 18px 18px; margin: 0 auto;
+      position: relative; z-index: 2;
+    }
+    .status {
+      display: flex; justify-content: space-between;
+      padding: 2px 22px 0; font-size: 12px; font-weight: 700;
+    }
+    .view { display: none; flex: 1; flex-direction: column; padding: 8px 16px 20px; }
+    .view.active { display: flex; }
+    .top {
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 44px; margin-bottom: 8px;
+    }
+    .top .title { font-weight: 800; font-size: 16px; }
+    .icon-btn {
+      width: 36px; height: 36px; border: 0; border-radius: 12px;
+      background: #E7EEEC; color: var(--ink); font-size: 16px; cursor: pointer;
+      font-family: "Vazirmatn", sans-serif;
+    }
+    .step { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .hero {
+      background: linear-gradient(145deg, var(--brand), var(--brand-deep));
+      color: #fff; border-radius: 22px; padding: 18px; margin: 6px 0 14px;
+    }
+    .hero .k { font-size: 12px; opacity: .85; }
+    .hero .v { font-size: 30px; font-weight: 800; margin-top: 4px; letter-spacing: -0.02em; }
+    .hero .s { font-size: 12px; opacity: .85; margin-top: 8px; }
+    .seg {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px;
+    }
+    .seg button {
+      border: 0; border-radius: 12px; padding: 10px 6px;
+      font-family: "Vazirmatn", sans-serif;
+      font-size: 12px; font-weight: 700; background: #E7EEEC; color: #456057; cursor: pointer;
+    }
+    .seg button.on { background: var(--brand-soft); color: var(--brand-deep); }
+    .list { display: flex; flex-direction: column; gap: 8px; flex: 1; overflow: auto; }
+    .item {
+      display: flex; align-items: center; gap: 10px; width: 100%;
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 16px; padding: 12px; cursor: pointer;
+      font-family: "Vazirmatn", sans-serif;
+      color: var(--ink); text-align: right;
+      transition: border-color .15s ease, transform .15s ease;
+    }
+    .item:hover, .item.selected { border-color: var(--brand); }
+    .item.selected { background: #F2FAF7; }
+    .av {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: grid; place-items: center; color: #fff; font-weight: 800; flex-shrink: 0;
+    }
+    .item .t { font-size: 14px; font-weight: 700; }
+    .item .s { font-size: 12px; color: var(--muted); }
+    .amt { margin-right: auto; font-size: 13px; font-weight: 800; }
+    .amt.plus { color: var(--lend); }
+    .amt.minus { color: var(--borrow); }
+    .cta {
+      margin-top: 12px; width: 100%; height: 52px; border: 0; border-radius: 16px;
+      background: var(--brand); color: #fff;
+      font-family: "Vazirmatn", sans-serif;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+    }
+    .cta:disabled { opacity: .45; cursor: not-allowed; }
+    .cta.ghost {
+      background: transparent; color: var(--brand);
+      border: 1.5px solid var(--brand);
+    }
+    .hint {
+      text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px;
+    }
+    .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 18px; }
+    .type {
+      border: 1.5px solid var(--line); background: #fff; border-radius: 18px;
+      padding: 28px 12px; text-align: center; cursor: pointer; font-weight: 700;
+      font-family: "Vazirmatn", sans-serif; color: var(--ink); font-size: 15px;
+      line-height: 1.6;
+    }
+    .type.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-deep); }
+    .search {
+      width: 100%; border: 1px solid var(--line); background: #fff;
+      border-radius: 14px; padding: 12px 14px;
+      font-family: "Vazirmatn", sans-serif; font-size: 14px; color: var(--ink);
+      margin-bottom: 12px; outline: none;
+    }
+    .search:focus { border-color: var(--brand); }
+    .amount-box {
+      background: #fff; border: 1px solid var(--line); border-radius: 20px;
+      padding: 22px 12px; text-align: center; margin: 8px 0 14px;
+    }
+    .amount-box input {
+      width: 100%; border: 0; outline: none; text-align: center;
+      font-family: "Vazirmatn", sans-serif; font-size: 36px; font-weight: 800;
+      background: transparent; color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    .unit { color: var(--muted); font-size: 13px; font-weight: 600; }
+    .field {
+      width: 100%; border: 1px solid var(--line); background: #fff;
+      border-radius: 14px; padding: 13px 14px;
+      font-family: "Vazirmatn", sans-serif; font-size: 14px; color: var(--ink);
+      margin-bottom: 10px; outline: none;
+    }
+    .field:focus { border-color: var(--brand); }
+    .summary {
+      background: #fff; border: 1px solid var(--line); border-radius: 20px;
+      padding: 16px; margin: 8px 0 12px;
+    }
+    .summary .row {
+      display: flex; justify-content: space-between; gap: 12px;
+      padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 14px;
+    }
+    .summary .row:last-child { border-bottom: 0; }
+    .summary .k { color: var(--muted); }
+    .summary .v { font-weight: 700; }
+    .success {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center; padding: 20px;
+    }
+    .badge {
+      width: 84px; height: 84px; border-radius: 50%;
+      background: var(--brand-soft); color: var(--brand);
+      display: grid; place-items: center; font-size: 36px; margin-bottom: 16px;
+    }
+    .quick {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px;
+    }
+    .chip {
+      border: 1px solid var(--line); background: #fff; border-radius: 999px;
+      padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer;
+      font-family: "Vazirmatn", sans-serif; color: var(--ink);
+    }
+    .pending {
+      background: #FFF7E8; border: 1px solid #E8C98A; border-radius: 14px;
+      padding: 10px 12px; font-size: 12px; color: #8A5A12; margin-bottom: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      body { padding: 16px 12px 28px; align-content: start; }
+      .stage {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .side { order: 2; width: min(390px, 100%); }
+      .device { order: 1; width: min(390px, 100%); }
+      .hero .v { font-size: 26px; }
+      .amount-box input { font-size: 30px; }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0;
+        display: block;
+        background: var(--paper);
+      }
+      .stage { gap: 0; }
+      .side {
+        order: 2;
+        width: 100%;
+        border-radius: 0;
+        border: 0;
+        border-top: 1px solid var(--line);
+        background: #fff;
+      }
+      .device {
+        order: 1;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        padding: 0;
+        box-shadow: none;
+        background: transparent;
+      }
+      .screen {
+        min-height: 100dvh;
+        border-radius: 0;
+      }
+      .notch { display: none; }
+      .status { padding-top: 10px; }
+      .view { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+      .hero .v { font-size: clamp(22px, 8vw, 28px); }
+      .amount-box input { font-size: clamp(28px, 10vw, 36px); }
+      .seg button { font-size: 11px; padding: 10px 4px; }
+      .item .t { font-size: 13px; }
+      .amt { font-size: 12px; }
+    }
+
+    @media (max-height: 720px) and (min-width: 481px) {
+      .screen { min-height: 640px; }
+      .hero { padding: 14px; }
+      .hero .v { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <aside class="side">
+      <h1>هم‌حساب</h1>
+      <p>پروتوتایپ تعاملی مسیر «ثبت یک قرض» از داشبورد تا موفقیت. روی گوشی مجازی کار کنید.</p>
+      <ol>
+        <li>از داشبورد «ثبت قرض جدید» را بزنید</li>
+        <li>نوع را انتخاب کنید</li>
+        <li>هم‌کلاسی را برگزینید</li>
+        <li>مبلغ و جزئیات را وارد کنید</li>
+        <li>بازبینی و ثبت کنید</li>
+      </ol>
+      <p style="margin-top:14px"><a href="../presentation/index.html">← بازگشت به ارائه کامل</a></p>
+    </aside>
+
+    <div class="device" aria-label="پروتوتایپ موبایل هم‌حساب">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
+
+        <!-- HOME -->
+        <section class="view active" id="home">
+          <div class="top">
+            <div>
+              <div style="font-size:12px;color:var(--muted)">سلام علی 👋</div>
+              <div class="title">کلاس یازدهم ریاضی</div>
+            </div>
+            <div class="av" style="background:var(--brand)">ع.ف</div>
+          </div>
+          <div class="hero">
+            <div class="k">مانده خالص شما</div>
+            <div class="v" id="netBalance">۲۴۰٬۰۰۰ تومان</div>
+            <div class="s">۳ نفر به شما بدهکارند · شما به ۱ نفر بدهکارید</div>
+          </div>
+          <div class="pending">۱ درخواست معلق از رضا کریمی — ۶۰٬۰۰۰ تومان</div>
+          <div class="seg">
+            <button class="on" type="button">بستانکاری</button>
+            <button type="button">بدهکاری</button>
+            <button type="button">معلق</button>
+          </div>
+          <div class="list">
+            <div class="item"><div class="av" style="background:#3E8F7C">س</div><div><div class="t">سارا محمدی</div><div class="s">ناهار · تا ۵ روز</div></div><div class="amt plus">+۱۵۰٬۰۰۰</div></div>
+            <div class="item"><div class="av" style="background:#C9892C">م</div><div><div class="t">مهدی رضایی</div><div class="s">جزوه فیزیک</div></div><div class="amt plus">+۹۰٬۰۰۰</div></div>
+            <div class="item"><div class="av" style="background:#5B6B64">ک</div><div><div class="t">کیان احمدی</div><div class="s">شما بدهکارید</div></div><div class="amt minus">−۴۰٬۰۰۰</div></div>
+          </div>
+          <button class="cta" type="button" onclick="go('type')">＋ ثبت قرض جدید</button>
+          <p class="hint">وجه در اپ جابه‌جا نمی‌شود — فقط ثبت می‌شود</p>
+        </section>
+
+        <!-- TYPE -->
+        <section class="view" id="type">
+          <div class="top">
+            <button class="icon-btn" type="button" onclick="go('home')" aria-label="بازگشت">→</button>
+            <div class="title">ثبت قرض</div>
+            <div class="step">۱/۴</div>
+          </div>
+          <p style="color:var(--muted);font-size:14px;margin:8px 0 4px">چه نوع ثبتی می‌خواهید؟</p>
+          <div class="type-grid">
+            <button class="type on" type="button" data-loan-type="lend" onclick="selectType(this)">
+              قرض دادم
+            </button>
+            <button class="type" type="button" data-loan-type="borrow" onclick="selectType(this)">
+              قرض گرفتم
+            </button>
+          </div>
+          <p class="hint" style="text-align:right;margin-bottom:auto">
+            بعد از ثبت، طرف مقابل باید تأیید کند تا مانده به‌روز شود.
+          </p>
+          <button class="cta" type="button" onclick="go('classmate')">ادامه</button>
+        </section>
+
+        <!-- CLASSMATE -->
+        <section class="view" id="classmate">
+          <div class="top">
+            <button class="icon-btn" type="button" onclick="go('type')" aria-label="بازگشت">→</button>
+            <div class="title">انتخاب هم‌کلاسی</div>
+            <div class="step">۲/۴</div>
+          </div>
+          <input class="search" id="search" type="search" placeholder="جستجوی نام…" oninput="filterClassmates()" />
+          <div class="list" id="classmateList"></div>
+          <button class="cta" id="pickBtn" type="button" disabled onclick="go('amount')">انتخاب و ادامه</button>
+        </section>
+
+        <!-- AMOUNT -->
+        <section class="view" id="amount">
+          <div class="top">
+            <button class="icon-btn" type="button" onclick="go('classmate')" aria-label="بازگشت">→</button>
+            <div class="title">مبلغ و جزئیات</div>
+            <div class="step">۳/۴</div>
+          </div>
+          <div class="pending" id="partyLabel">به: —</div>
+          <div class="amount-box">
+            <input id="amountInput" inputmode="numeric" placeholder="۰" value="۱۵۰٬۰۰۰" oninput="formatAmount()" />
+            <div class="unit">تومان</div>
+            <div class="quick">
+              <button class="chip" type="button" onclick="setAmount(50000)">۵۰٬۰۰۰</button>
+              <button class="chip" type="button" onclick="setAmount(100000)">۱۰۰٬۰۰۰</button>
+              <button class="chip" type="button" onclick="setAmount(150000)">۱۵۰٬۰۰۰</button>
+              <button class="chip" type="button" onclick="setAmount(200000)">۲۰۰٬۰۰۰</button>
+            </div>
+          </div>
+          <input class="field" id="noteInput" type="text" placeholder="یادداشت (مثلاً ناهار سلف)" value="ناهار سلف" />
+          <input class="field" id="dueInput" type="text" placeholder="سررسید (مثلاً ۵ روز دیگر)" value="۵ روز دیگر" />
+          <div style="flex:1"></div>
+          <button class="cta" type="button" onclick="go('review')">ادامه به بازبینی</button>
+        </section>
+
+        <!-- REVIEW -->
+        <section class="view" id="review">
+          <div class="top">
+            <button class="icon-btn" type="button" onclick="go('amount')" aria-label="بازگشت">→</button>
+            <div class="title">بازبینی</div>
+            <div class="step">۴/۴</div>
+          </div>
+          <div class="summary" id="summaryBox"></div>
+          <p class="hint" style="text-align:right;margin-bottom:auto">
+            با ثبت، یک درخواست تأیید برای طرف مقابل ارسال می‌شود. انتقال وجه بیرون از اپ انجام می‌شود.
+          </p>
+          <button class="cta" type="button" onclick="submitLoan()">ثبت و ارسال برای تأیید</button>
+        </section>
+
+        <!-- SUCCESS -->
+        <section class="view" id="success">
+          <div class="success">
+            <div class="badge">✓</div>
+            <h2 style="font-size:22px;font-weight:800;margin-bottom:8px">قرض ثبت شد</h2>
+            <p style="color:var(--muted);font-size:14px;line-height:1.8;max-width:28ch" id="successText">
+              منتظر تأیید طرف مقابل بمانید.
+            </p>
+          </div>
+          <button class="cta" type="button" onclick="resetFlow()">بازگشت به داشبورد</button>
+          <button class="cta ghost" type="button" style="margin-top:8px" onclick="go('type')">ثبت قرض دیگر</button>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const classmates = [
+      { id: 1, name: "مهدی رضایی", initial: "م", color: "#C9892C", meta: "میز ۳ · یازدهم ریاضی" },
+      { id: 2, name: "سارا محمدی", initial: "س", color: "#3E8F7C", meta: "میز ۱ · یازدهم ریاضی" },
+      { id: 3, name: "کیان احمدی", initial: "ک", color: "#5B6B64", meta: "میز ۵ · یازدهم ریاضی" },
+      { id: 4, name: "رضا کریمی", initial: "ر", color: "#8A5A12", meta: "میز ۲ · یازدهم ریاضی" },
+      { id: 5, name: "امیر حسینی", initial: "ا", color: "#2F6F8F", meta: "میز ۴ · یازدهم ریاضی" },
+    ];
+
+    const state = {
+      loanType: "lend",
+      classmate: null,
+      amount: 150000,
+      note: "ناهار سلف",
+      due: "۵ روز دیگر",
+    };
+
+    function toFaDigits(str) {
+      return String(str).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+    }
+    function toEnDigits(str) {
+      return String(str)
+        .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
+        .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+    }
+    function formatNumberFa(n) {
+      const num = Number(n) || 0;
+      return toFaDigits(num.toLocaleString("en-US")).replace(/,/g, "٬");
+    }
+    function formatToman(n) {
+      return formatNumberFa(n) + " تومان";
+    }
+    function onlyDigits(s) {
+      return toEnDigits(String(s)).replace(/[^\d]/g, "");
+    }
+
+    function go(id) {
+      if (id === "review") buildSummary();
+      if (id === "amount") {
+        document.getElementById("partyLabel").textContent =
+          (state.loanType === "lend" ? "به: " : "از: ") +
+          (state.classmate ? state.classmate.name : "—");
+        formatAmount();
+      }
+      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    function selectType(el) {
+      document.querySelectorAll(".type").forEach(t => t.classList.remove("on"));
+      el.classList.add("on");
+      state.loanType = el.dataset.loanType;
+    }
+
+    function renderClassmates(filter = "") {
+      const list = document.getElementById("classmateList");
+      const q = filter.trim();
+      list.innerHTML = classmates
+        .filter(c => !q || c.name.includes(q))
+        .map(c => `
+          <button class="item ${state.classmate?.id === c.id ? "selected" : ""}" type="button" onclick="pickClassmate(${c.id})">
+            <div class="av" style="background:${c.color}">${c.initial}</div>
+            <div>
+              <div class="t">${c.name}</div>
+              <div class="s">${c.meta}</div>
+            </div>
+          </button>
+        `).join("");
+    }
+
+    function filterClassmates() {
+      renderClassmates(document.getElementById("search").value);
+    }
+
+    function pickClassmate(id) {
+      state.classmate = classmates.find(c => c.id === id);
+      document.getElementById("pickBtn").disabled = !state.classmate;
+      renderClassmates(document.getElementById("search").value);
+    }
+
+    function setAmount(n) {
+      state.amount = n;
+      document.getElementById("amountInput").value = formatNumberFa(n);
+      formatAmount();
+    }
+
+    function formatAmount() {
+      const raw = onlyDigits(document.getElementById("amountInput").value) || "0";
+      state.amount = Number(raw);
+      document.getElementById("amountInput").value = formatNumberFa(raw);
+    }
+
+    function buildSummary() {
+      state.note = document.getElementById("noteInput").value || "—";
+      state.due = document.getElementById("dueInput").value || "بدون سررسید";
+      const typeLabel = state.loanType === "lend" ? "قرض دادم" : "قرض گرفتم";
+      document.getElementById("summaryBox").innerHTML = `
+        <div class="row"><span class="k">نوع</span><span class="v">${typeLabel}</span></div>
+        <div class="row"><span class="k">طرف مقابل</span><span class="v">${state.classmate?.name || "—"}</span></div>
+        <div class="row"><span class="k">مبلغ</span><span class="v">${formatToman(state.amount)}</span></div>
+        <div class="row"><span class="k">یادداشت</span><span class="v">${state.note}</span></div>
+        <div class="row"><span class="k">سررسید</span><span class="v">${state.due}</span></div>
+        <div class="row"><span class="k">وضعیت پس از ثبت</span><span class="v">در انتظار تأیید</span></div>
+      `;
+    }
+
+    function submitLoan() {
+      const who = state.classmate?.name || "طرف مقابل";
+      document.getElementById("successText").textContent =
+        `درخواست ${formatToman(state.amount)} برای ${who} ارسال شد. تا تأیید او، مانده خالص تغییر نمی‌کند.`;
+      go("success");
+    }
+
+    function resetFlow() {
+      state.loanType = "lend";
+      state.classmate = null;
+      state.amount = 150000;
+      document.getElementById("pickBtn").disabled = true;
+      document.querySelectorAll(".type").forEach((t, i) => t.classList.toggle("on", i === 0));
+      document.getElementById("amountInput").value = formatNumberFa(150000);
+      document.getElementById("noteInput").value = "ناهار سلف";
+      document.getElementById("dueInput").value = "۵ روز دیگر";
+      document.getElementById("search").value = "";
+      renderClassmates();
+      go("home");
+    }
+
+    renderClassmates();
+    formatAmount();
+  </script>
+</body>
+</html>
