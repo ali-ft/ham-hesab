@@ -37,23 +37,6 @@
       place-items: center;
       padding: 24px 16px;
     }
-    .stage { display: flex; flex-wrap: wrap; gap: 28px; align-items: start; justify-content: center; }
-    .side {
-      width: min(360px, 100%);
-      background: rgba(255,255,255,.72);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 18px;
-      backdrop-filter: blur(8px);
-    }
-    .side h1 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
-    .side p { color: var(--muted); font-size: 14px; line-height: 1.7; }
-    .side ol { margin: 14px 0 0 0; padding-right: 18px; color: var(--muted); font-size: 13px; line-height: 1.8; list-style: none; counter-reset: step; }
-    .side ol li { counter-increment: step; position: relative; padding-right: 22px; }
-    .side ol li::before {
-      content: counter(step, persian) ".";
-      position: absolute; right: 0; font-weight: 700; color: var(--brand);
-    }
     .device {
       width: 390px; max-width: 100%;
       background: #121816;
@@ -257,22 +240,15 @@
     .scroll-body { flex: 1; overflow: auto; min-height: 0; }
 
     @media (max-width: 900px) {
-      body { padding: 16px 12px 28px; align-content: start; }
-      .stage { width: 100%; flex-direction: column; align-items: center; gap: 16px; }
-      .side { order: 2; width: min(390px, 100%); }
-      .device { order: 1; width: min(390px, 100%); }
+      body { padding: 16px 12px 28px; }
+      .device { width: min(390px, 100%); }
       .hero .v { font-size: 26px; }
       .amount-box input { font-size: 30px; }
     }
     @media (max-width: 480px) {
       body { padding: 0; display: block; background: var(--paper); }
-      .stage { gap: 0; }
-      .side {
-        order: 2; width: 100%; border-radius: 0; border: 0;
-        border-top: 1px solid var(--line); background: #fff;
-      }
       .device {
-        order: 1; width: 100%; max-width: 100%; border-radius: 0;
+        width: 100%; max-width: 100%; border-radius: 0;
         padding: 0; box-shadow: none; background: transparent;
       }
       .screen { min-height: 100dvh; border-radius: 0; }
@@ -285,21 +261,7 @@
   </style>
 </head>
 <body>
-  <div class="stage">
-    <aside class="side">
-      <h1>هم‌حساب</h1>
-      <p>پروتوتایپ مسیر ثبت قرض از داشبورد تا تأیید.</p>
-      <ol>
-        <li>ثبت قرض جدید</li>
-        <li>انتخاب نوع</li>
-        <li>انتخاب هم‌کلاسی</li>
-        <li>ورود مبلغ و جزئیات</li>
-        <li>بازبینی و ثبت</li>
-      </ol>
-      <p style="margin-top:14px"><a href="../presentation/index.html">← ارائه کامل</a></p>
-    </aside>
-
-    <div class="device" aria-label="پروتوتایپ موبایل هم‌حساب">
+  <div class="device" aria-label="پروتوتایپ موبایل هم‌حساب">
       <div class="screen">
         <div class="notch"></div>
         <div class="status"><span>۹:۴۱</span><span>●●● LTE</span></div>
@@ -456,7 +418,6 @@
         </section>
       </div>
     </div>
-  </div>
 
   <script>
     const classmates = [
